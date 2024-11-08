@@ -12,7 +12,7 @@ const MyFollowing = () => {
   return (
     <>
       <div className="px-2">
-        {/* <NavbarFollow /> */}
+        <NavbarFollow />
         <div className="mb-32 mt-5 flex flex-col gap-4">
           {dataMyfollowing?.data?.users?.map((item, index) => (
             <div key={index}>
