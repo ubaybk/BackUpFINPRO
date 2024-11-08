@@ -63,14 +63,14 @@ export const routes = [
         </ProtectedRoute>
     )
   },
-  // {
-  //   path: "/myfollowing",
-  //   element: (
-  //       <ProtectedRoute>
-  //           <MyFollowing/>
-  //       </ProtectedRoute>
-  //   )
-  // },
+  {
+    path: "/myfollowing",
+    element: (
+        <ProtectedRoute>
+            <MyFollowing/>
+        </ProtectedRoute>
+    )
+  },
   {
     path: "/myfollowers",
     element: (
