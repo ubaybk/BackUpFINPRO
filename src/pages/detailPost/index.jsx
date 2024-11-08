@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import useTime from "../../hooks/useTime"
+
 
 
 const DetailPost = () => {
@@ -8,6 +10,7 @@ const DetailPost = () => {
     const [dataPostUserId, setDataPostUserId] = useState([])
     const apiKey = import.meta.env.VITE_API_KEY;
     const token = localStorage.getItem("token");
+    const timeAgo = useTime()
 
     const getPostUserId = () => {
         axios
@@ -34,6 +37,7 @@ const DetailPost = () => {
 
     console.log('idusercooy',userId)
     console.log('data buat post ID USER',dataPostUserId)
+    
     return(
         <>
         <div>
@@ -49,6 +53,8 @@ const DetailPost = () => {
                         <div className="flex flex-col">
                         <p>{item?.user?.username}</p>
                         <p>{item?.caption}</p>
+
+                        <p className="text-[10px] text-gray-500">{timeAgo(item?.updatedAt)}</p>
                         </div>
 
                         </div>
