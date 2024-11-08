@@ -6,8 +6,9 @@ import Login from "../pages/login";
 import Register from "../pages/register";
 import ExplorePost from "../pages/explorePost";
 import ProtectedRoute from "./protectedRoute";
-// import MyFollowing from "../pages/myfollowing";
+
 import MyFollowers from "../pages/myFollowers";
+import MyFollowing from "../pages/myfollowing";
 import PostCreate from "../pages/postCreate";
 import FollowingUserId from "../pages/followingUserId";
 // import { FollowingByUserIdContextProvider } from "../context/FollowingByUserIdContextProvider";
