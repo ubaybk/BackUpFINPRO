@@ -9,6 +9,8 @@ import ProtectedRoute from "./protectedRoute";
 
 import MyFollowers from "../pages/myFollowers";
 import MyFollowing from "../pages/myfollowing";
+import MyFollowings from "../pages/myFollowings";
+
 import PostCreate from "../pages/postCreate";
 import FollowingUserId from "../pages/followingUserId";
 // import { FollowingByUserIdContextProvider } from "../context/FollowingByUserIdContextProvider";
@@ -67,7 +69,7 @@ export const routes = [
     path: "/myfollowing",
     element: (
         <ProtectedRoute>
-            <MyFollowing/>
+            <MyFollowings/>
         </ProtectedRoute>
     )
   },
