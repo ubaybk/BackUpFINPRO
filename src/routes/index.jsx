@@ -8,7 +8,7 @@ import ExplorePost from "../pages/explorePost";
 import ProtectedRoute from "./protectedRoute";
 
 import MyFollowers from "../pages/myFollowers";
-import MyFollowing from "../pages/myfollowing";
+import MyFollowing from "../pages/myFollowing";
 
 
 import PostCreate from "../pages/postCreate";
