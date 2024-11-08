@@ -9,7 +9,7 @@ import ProtectedRoute from "./protectedRoute";
 
 import MyFollowers from "../pages/myFollowers";
 import MyFollowing from "../pages/myfollowing";
-import MyFollowings from "../pages/myFollowings";
+
 
 import PostCreate from "../pages/postCreate";
 import FollowingUserId from "../pages/followingUserId";
@@ -69,7 +69,7 @@ export const routes = [
     path: "/myfollowing",
     element: (
         <ProtectedRoute>
-            <MyFollowings/>
+            <MyFollowing/>
         </ProtectedRoute>
     )
   },
