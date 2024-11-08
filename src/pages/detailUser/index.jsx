@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa6";
 import Footer from "../../components/footer";
 import ButtonBack from "../../components/buttonback";
-
+import { followingContext } from "../../context/FollowingContextProvider";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -15,6 +15,7 @@ const DetailUser = () => {
   const [postUser, setPostUser] = useState([]);
   const [logOut, setLogOut] = useState(false);
   const [followUser, setFollowUser] = useState("Ikuti");
+  const { dataMyfollowing } = useContext(followingContext);
 
   const getDetailUser = () => {
     axios
@@ -55,32 +56,21 @@ const DetailUser = () => {
   };
 
   const checkIfUserIsFollowing = () => {
-    axios
-      .get(
-        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/following/${userId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            apiKey: apiKey,
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data.data.isFollowing) {
-          setFollowUser("Mengikuti");
-        } else {
-          setFollowUser("Ikuti");
-        }
-      })
-      .catch((error) => {
-        console.error("Gagal memeriksa status follow:", error);
-      });
+    // Cek apakah userId terdapat di dalam dataMyfollowing?.data?.users
+    const isFollowing = dataMyfollowing?.data?.users.some(
+      (user) => user.id === userId
+    );
+
+    if (isFollowing) {
+      setFollowUser("Mengikuti");
+    } else {
+      setFollowUser("Ikuti");
+    }
   };
 
   const handleFollowUser = () => {
     const userIdFollow = localStorage.getItem("userIdFollow");
-  
+
     if (followUser === "Ikuti") {
       // Jika belum mengikuti, lakukan follow
       axios
@@ -106,11 +96,10 @@ const DetailUser = () => {
       handleUnfollowUser(); // Panggil fungsi unfollow
     }
   };
-  
 
   const handleUnfollowUser = () => {
     const userIdFollow = localStorage.getItem("userIdFollow");
-  
+
     axios
       .delete(
         `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/unfollow/${userIdFollow}`,
@@ -123,7 +112,6 @@ const DetailUser = () => {
         }
       )
       .then((res) => {
-        // Jika unfollow berhasil, update status follow menjadi "Ikuti"
         setFollowUser("Ikuti");
       })
       .catch((error) => {
@@ -138,7 +126,7 @@ const DetailUser = () => {
   useEffect(() => {
     getDetailUser();
     checkIfUserIsFollowing(); // Mengecek apakah user sudah mengikuti atau belum
-  }, [userId]);
+  }, [userId, dataMyfollowing]);
 
   return (
     <>
@@ -202,8 +190,10 @@ const DetailUser = () => {
           <div className="grid grid-cols-3">
             {postUser.map((item, index) => (
               <div key={index}>
+                <Link to={`/detailpost/${userId}`}>
                 <img className="w-[200px] h-[200px]" src={item.imageUrl} alt="" />
                 <h1>{item.caption}</h1>
+                </Link>
               </div>
             ))}
           </div>

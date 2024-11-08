@@ -97,7 +97,7 @@ const Comment = ({ postId, onCommentData  }) => {
           <p>{item.user.username}</p>
         </div>
               <p>{item.comment}</p>
-              <p>{timeAgo(item.user.createdAt)}</p>
+              <p className="text-[10px] text-gray-500">{timeAgo(item.user.createdAt)}</p>
             </div>
           ))
         ) : (

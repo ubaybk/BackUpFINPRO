@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import ButtonBack from "../../components/buttonback";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const Register = () => {
+  const photo = usePhotoDefault()
   // const [file, setFile] = useState(null);
   // const [preview, setPreview] = useState(null);
   const [sendImage, setSendImage] = useState("");
@@ -17,7 +19,7 @@ const Register = () => {
     email: "",
     password: "",
     passwordRepeat: "",
-    profilePictureUrl: "",
+    profilePictureUrl: photo,
     phoneNumber: "",
     bio: "",
     website: "",
@@ -73,10 +75,12 @@ const Register = () => {
   };
 
   useEffect(() => {
-    setFormRegister((prevState) => ({
-      ...prevState,
-      profilePictureUrl: sendImage,
-    }));
+    if (sendImage) {
+      setFormRegister((prevState) => ({
+        ...prevState,
+        profilePictureUrl: sendImage,
+      }));
+    }
   }, [sendImage]);
 
   return (

@@ -18,6 +18,7 @@ import FollowersUserId from "../pages/followersUserId";
 import Story from "../pages/story";
 import AddStory from "../pages/addStory";
 import DetailExplore from "../pages/detailExplore";
+import DetailPost from "../pages/detailPost";
 
 
 export const routes = [
@@ -139,6 +140,17 @@ export const routes = [
         <ProtectedRoute>
          
             <DetailExplore/>
+          
+        </ProtectedRoute>
+    )
+  },
+  {
+    path: "/detailpost/:userId",
+
+    element: (
+        <ProtectedRoute>
+         
+            <DetailPost/>
           
         </ProtectedRoute>
     )
