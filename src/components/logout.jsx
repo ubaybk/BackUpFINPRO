@@ -28,6 +28,8 @@ const Logout = () => {
         localStorage.removeItem("userId")
         localStorage.removeItem("username")
         localStorage.removeItem("website")
+        localStorage.removeItem("userIdFollow")
+        localStorage.removeItem("usernameById")
         navigate('/')
       })
 
