@@ -1,6 +1,8 @@
 import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useDarkMode from "../hooks/useDarkMode";
+import DarkModeToggle from "../components/DarkModeToggle";
 axios
 const Logout = () => {
   const photoProfile = localStorage.getItem("photo");
@@ -8,6 +10,7 @@ const Logout = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
+  const [darkMode, toggleDarkMode] = useDarkMode();
 
 
   const handleLogout = () => {
@@ -53,7 +56,13 @@ const Logout = () => {
             <FaCheckCircle className="text-[25px]" />
           </div>
           <div className="text-center font-bold text-[30px]">
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-green-500">Dark Mode</p>
+             <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+
+            </div>
             <h1 onClick={handleLogout} className="text-red-600">LOG OUT</h1>
+            
           </div>
         </div>
       </div>

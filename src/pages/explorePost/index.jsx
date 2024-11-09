@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { IoSearch } from "react-icons/io5";
 import ButtonBack from "../../components/buttonback";
 import { Link } from "react-router-dom";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const ExplorePost = () => {
   const [explorePost, setExplorePost] = useState([]); // Menyimpan semua post yang dimuat
@@ -11,6 +12,7 @@ const ExplorePost = () => {
   const [hasMore, setHasMore] = useState(true); // Untuk mengecek apakah masih ada data untuk dimuat
   const apiKey = import.meta.env.VITE_API_KEY;
   const token = localStorage.getItem("token");
+  const defaultPhoto = usePhotoDefault();
 
   const lastPostRef = useRef(null); // Referensi ke elemen yang terakhir untuk observer
 
@@ -68,7 +70,7 @@ const ExplorePost = () => {
 
   return (
     <>
-      <div className="flex items-center py-2 px-2 gap-1 mb-5">
+      <div className="flex items-center py-2 px-2 gap-1 mb-1">
         <ButtonBack />
         <div className="relative flex items-center flex-grow">
           <IoSearch className="absolute left-2 text-gray-600" />
@@ -80,7 +82,7 @@ const ExplorePost = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-1">
         {explorePost.map((item, index) => (
           <div key={index}>
             <Link
@@ -88,7 +90,7 @@ const ExplorePost = () => {
               state={{ postDetail: item }} // Mengirimkan data melalui state
             >
               <div>
-                <img src={item.imageUrl} alt="Post" />
+                <img src={item.imageUrl || defaultPhoto } onError={(e) => {e.target.src=defaultPhoto}} className="w-40 h-40" alt="Post" />
               </div>
             </Link>
           </div>

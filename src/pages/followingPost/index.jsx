@@ -7,14 +7,16 @@ import Comment from "../../components/comment";
 import useTime from "../../hooks/useTime";
 import { getFollowingPostContext } from "../../context/GetFollowingPostContextProvider";
 import MyFollowingStory from "../../components/Story/myFollowingStory";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const FollowingPost = () => {
   const { dataGetFollowingPost } = useContext(getFollowingPostContext);
   const timeAgo = useTime();
   const [posts, setPosts] = useState([]);
-  const [likes, setLikes] = useState([]); // State untuk menyimpan like status per post
-  const [showComment, setShowComment] = useState(false);
+  const [likes, setLikes] = useState([]);
+  const [showComments, setShowComments] = useState({});
   const apiKey = import.meta.env.VITE_API_KEY;
+  const defaultPhoto = usePhotoDefault();
 
   const handleLike = (postId) => {
     const token = localStorage.getItem("token");
@@ -42,47 +44,43 @@ const FollowingPost = () => {
       )
       .then((response) => {
         if (likes.includes(postId)) {
-          // Jika sudah di-like, hapus dari daftar likes
           const updatedLikes = likes.filter((id) => id !== postId);
           setLikes(updatedLikes);
-          localStorage.setItem("likedPosts", JSON.stringify(updatedLikes)); // Simpan ke localStorage
+          localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
         } else {
-          // Jika belum di-like, tambahkan ke daftar likes
           const updatedLikes = [...likes, postId];
           setLikes(updatedLikes);
-          localStorage.setItem("likedPosts", JSON.stringify(updatedLikes)); // Simpan ke localStorage
+          localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
         }
 
-        // Update totalLikes based on the response
         const updatedPosts = posts.map((post) =>
           post.id === postId
             ? { ...post, totalLikes: response.data.totalLikes }
             : post
         );
-        setPosts(updatedPosts); // Update state posts
+        setPosts(updatedPosts);
       })
       .catch((error) => {
         console.error("Error liking/unliking post", error);
       });
   };
 
-  const handleShowComment = () => {
-    setShowComment(!showComment);
+  const toggleShowComment = (postId) => {
+    setShowComments((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
   };
 
-  // Fungsi untuk menerima data dari Comment
   const handleCommentData = (data) => {
     console.log("Data dari Comment:", data);
-    // Lakukan apa pun yang Anda inginkan dengan data ini di FollowingPost
   };
 
-  // Memperbarui posts jika dataGetFollowingPost berubah
   useEffect(() => {
     if (dataGetFollowingPost) {
       setPosts(dataGetFollowingPost);
     }
 
-    // Ambil likes dari localStorage saat komponen pertama kali dimuat
     const savedLikes = JSON.parse(localStorage.getItem("likedPosts")) || [];
     setLikes(savedLikes);
   }, [dataGetFollowingPost]);
@@ -105,15 +103,15 @@ const FollowingPost = () => {
                 <button>{item.user.username}</button>
               </Link>
             </div>
-            <img src={item.imageUrl} className="w-full" alt="" />
+            <img src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}} className="w-full" alt="" />
             <div className="px-3">
               <div className="text-2xl flex items-center gap-12">
                 <div className="flex items-center gap-3">
                   <FaRegHeart
                     className={`cursor-pointer ${
                       likes.includes(item.id) ? "text-red-500" : "text-gray-500"
-                    }`} // Ubah warna jika post sudah di-like
-                    onClick={() => handleLike(item.id)} // Pass item.id to handleLike
+                    }`}
+                    onClick={() => handleLike(item.id)}
                   />
                   <p>{item.totalLikes}</p>
                 </div>
@@ -126,19 +124,19 @@ const FollowingPost = () => {
                 <h1 className="font-semibold">{item.user.username}</h1>
                 <h1>{item.caption}</h1>
               </div>
-              {showComment && (
-                <button
-                  onClick={handleShowComment}
-                  className="text-[12px] text-gray-500"
-                >
-                  Lihat semua komentar
-                </button>
-              )}
+              <button
+                onClick={() => toggleShowComment(item.id)}
+                className="text-[12px] text-gray-500"
+              >
+                {showComments[item.id] ? "Sembunyikan komentar" : "Lihat semua komentar"}
+              </button>
               <p className="text-[10px] text-gray-500">
                 {timeAgo(item.createdAt)}
               </p>
+              {showComments[item.id] && (
+                <Comment postId={item.id} onCommentData={handleCommentData} />
+              )}
             </div>
-            <Comment postId={item.id} onCommentData={handleCommentData} />
           </div>
         ))
       ) : (
