@@ -9,6 +9,7 @@ import { getFollowingPostContext } from "../../context/GetFollowingPostContextPr
 import MyFollowingStory from "../../components/Story/myFollowingStory";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 
+
 const FollowingPost = () => {
   const { dataGetFollowingPost } = useContext(getFollowingPostContext);
   const timeAgo = useTime();
@@ -82,10 +83,6 @@ const FollowingPost = () => {
         setPosts(posts);
       });
   };
-  
-
-  
-  
   
 
   const toggleShowComment = (postId) => {

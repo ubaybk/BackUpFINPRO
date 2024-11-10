@@ -129,7 +129,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-3 mb-36">
         {post.map((item, index) => (
           <div key={index} className="flex flex-col items-center">
-            <Link to={'/detailpost/'}>
+            <Link to={`/detailpost/${userId}`}>
             <img src={item.imageUrl} className="w-60 h-60" alt="" />
             <h1>{item.caption}</h1>
             </Link>

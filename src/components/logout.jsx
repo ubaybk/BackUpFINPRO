@@ -3,6 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useDarkMode from "../hooks/useDarkMode";
 import DarkModeToggle from "../components/DarkModeToggle";
+import { MdOutlineTipsAndUpdates } from "react-icons/md";
 axios
 const Logout = () => {
   const photoProfile = localStorage.getItem("photo");
@@ -54,6 +55,10 @@ const Logout = () => {
 
             </div>
             <FaCheckCircle className="text-[25px]" />
+          </div>
+          <div className="flex items-center justify-center gap-3 text-[30px]">
+          <MdOutlineTipsAndUpdates />
+            <p>Update Profile</p>
           </div>
           <div className="text-center font-bold text-[30px]">
             <div className="flex items-center justify-center gap-2">

@@ -4,6 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import ButtonBack from "../../components/buttonback";
 import { Link } from "react-router-dom";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver"; // Import hook baru
 
 const ExplorePost = () => {
   const [explorePost, setExplorePost] = useState([]); // Menyimpan semua post yang dimuat
@@ -54,19 +55,8 @@ const ExplorePost = () => {
     }
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, {
-      rootMargin: "20px", // Memulai observer 20px sebelum mencapai elemen
-    });
-    if (lastPostRef.current) {
-      observer.observe(lastPostRef.current); // Mulai mengamati elemen terakhir
-    }
-    return () => {
-      if (lastPostRef.current) {
-        observer.unobserve(lastPostRef.current); // Hentikan observer ketika komponen di-unmount
-      }
-    };
-  }, [loading, hasMore]); // Dependensi agar observer bekerja dengan benar
+  // Menggunakan custom hook
+  useIntersectionObserver(handleObserver, { rootMargin: "20px" }, lastPostRef);
 
   return (
     <>
@@ -90,7 +80,14 @@ const ExplorePost = () => {
               state={{ postDetail: item }} // Mengirimkan data melalui state
             >
               <div>
-                <img src={item.imageUrl || defaultPhoto } onError={(e) => {e.target.src=defaultPhoto}} className="w-40 h-40" alt="Post" />
+                <img
+                  src={item.imageUrl || defaultPhoto}
+                  onError={(e) => {
+                    e.target.src = defaultPhoto;
+                  }}
+                  className="w-40 h-40"
+                  alt="Post"
+                />
               </div>
             </Link>
           </div>
