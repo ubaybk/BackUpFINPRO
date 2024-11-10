@@ -13,23 +13,40 @@ const FollowingPost = () => {
   const { dataGetFollowingPost } = useContext(getFollowingPostContext);
   const timeAgo = useTime();
   const [posts, setPosts] = useState([]);
-  const [likes, setLikes] = useState([]);
   const [showComments, setShowComments] = useState({});
   const apiKey = import.meta.env.VITE_API_KEY;
   const defaultPhoto = usePhotoDefault();
 
-  const handleLike = (postId) => {
+  const handleLike = (postId, isLike) => {
     const token = localStorage.getItem("token");
-
+  
     if (!token) {
       console.error("User not authenticated");
       return;
     }
-
-    const apiUrl = likes.includes(postId)
+  
+    // Optimistic Update: Update totalLikes secara langsung
+    const updatedPosts = posts.map((post) =>
+      post.id === postId
+        ? {
+            ...post,
+            isLike: !isLike,
+            totalLikes: isLike
+              ? (post.totalLikes > 0 ? post.totalLikes - 1 : 0) // Mengurangi totalLikes jika sebelumnya sudah like
+              : post.totalLikes + 1, // Menambah totalLikes jika sebelumnya belum like
+          }
+        : post
+    );
+  
+    // Set posts dengan perubahan sementara
+    setPosts(updatedPosts);
+  
+    // Menentukan URL untuk like/unlike
+    const apiUrl = isLike
       ? "https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/unlike"
       : "https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/like";
-
+  
+    // Mengirim request ke API
     axios
       .post(
         apiUrl,
@@ -43,27 +60,33 @@ const FollowingPost = () => {
         }
       )
       .then((response) => {
-        if (likes.includes(postId)) {
-          const updatedLikes = likes.filter((id) => id !== postId);
-          setLikes(updatedLikes);
-          localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
-        } else {
-          const updatedLikes = [...likes, postId];
-          setLikes(updatedLikes);
-          localStorage.setItem("likedPosts", JSON.stringify(updatedLikes));
-        }
-
-        const updatedPosts = posts.map((post) =>
+        // Setelah respons dari server, update totalLikes sesuai data dari API
+        const confirmedPosts = posts.map((post) =>
           post.id === postId
-            ? { ...post, totalLikes: response.data.totalLikes }
+            ? {
+                ...post,
+                isLike: !isLike,
+                totalLikes: response.data.totalLikes || post.totalLikes, // Menggunakan data yang benar dari server
+              }
             : post
         );
-        setPosts(updatedPosts);
+  
+        // Update state dengan nilai yang sesuai dari server
+        setPosts(confirmedPosts);
       })
       .catch((error) => {
         console.error("Error liking/unliking post", error);
+        // Jika ada error, tidak ada update dari server
+        // Anda bisa menambahkan penanganan untuk error di sini jika diperlukan
+        // Misalnya, mengembalikan state ke kondisi semula (sebelum klik)
+        setPosts(posts);
       });
   };
+  
+
+  
+  
+  
 
   const toggleShowComment = (postId) => {
     setShowComments((prev) => ({
@@ -80,9 +103,6 @@ const FollowingPost = () => {
     if (dataGetFollowingPost) {
       setPosts(dataGetFollowingPost);
     }
-
-    const savedLikes = JSON.parse(localStorage.getItem("likedPosts")) || [];
-    setLikes(savedLikes);
   }, [dataGetFollowingPost]);
 
   return (
@@ -94,7 +114,7 @@ const FollowingPost = () => {
             <div className="flex items-center gap-3 p-3">
               <div className="w-8">
                 <img
-                  className="rounded-full"
+                  className="rounded-full h-[36px] w-[36px]"
                   src={item.user.profilePictureUrl}
                   alt=""
                 />
@@ -103,24 +123,26 @@ const FollowingPost = () => {
                 <button>{item.user.username}</button>
               </Link>
             </div>
-            <img src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}} className="w-full" alt="" />
-            <div className="px-3">
+            <div className="flex flex-col items-center">
+              <img src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}} className="w-[358px] h-[329px] rounded-md" alt="" />
+            </div>
+            <div className="px-3 mb-3">
               <div className="text-2xl flex items-center gap-12">
                 <div className="flex items-center gap-3">
                   <FaRegHeart
                     className={`cursor-pointer ${
-                      likes.includes(item.id) ? "text-red-500" : "text-gray-500"
+                      item.isLike ? "text-red-500" : "text-gray-500"
                     }`}
-                    onClick={() => handleLike(item.id)}
+                    onClick={() => handleLike(item.id, item.isLike)}
                   />
-                  <p>{item.totalLikes}</p>
+                  <p className="text-[17px]">{item.totalLikes}</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 ">
                   <FaRegComment />
-                  <p>{item.caption.length}</p>
+                  <p className="text-[17px]">{item.caption.length}</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col">
                 <h1 className="font-semibold">{item.user.username}</h1>
                 <h1>{item.caption}</h1>
               </div>

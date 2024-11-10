@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const MyFollowingStory = () => {
   const imgProfile = localStorage.getItem("photo");
+  const username = localStorage.getItem("username")
   const { dataMyFollowingStory } = useContext(getMyFollowingStoriesContext);
 
   console.log("data post story following", dataMyFollowingStory);
@@ -14,15 +15,18 @@ const MyFollowingStory = () => {
         <div className="relative">
           <div>
             <Link to={``}>
-          <img src={imgProfile} className=" rounded-full w-10 h-10  " alt="" />
+              <img
+                src={imgProfile}
+                className=" rounded-full w-[60px] h-[60px]"
+                alt=""
+              />
+              <p>{username}</p>
             </Link>
-
           </div>
           <div>
-          <Link to={'/addstory'}>
-          <FaPlusCircle className="absolute bottom-0 right-0 text-green-400" />
-          </Link>
-
+            <Link to={"/addstory"}>
+              <FaPlusCircle className="absolute bottom-7 right-0 text-green-400" />
+            </Link>
           </div>
         </div>
         {dataMyFollowingStory?.data?.stories.map((item, index) => (
@@ -31,12 +35,16 @@ const MyFollowingStory = () => {
               <Link
                 to={`/story/${item.id}`}
                 state={{ storyId: item.id }} // Mengirim item.id melalui state secara langsung
+                className="flex flex-col items-center"
               >
                 <img
                   src={item?.user?.profilePictureUrl}
-                  className="w-10 h-10 rounded-full"
+                  className="w-[60px] h-[60px]  rounded-full"
                   alt=""
                 />
+               <p className="text-[14px]">{item?.user?.username?.length > 10 ? `${item.user.username.slice(0, 10)}...` : item.user.username}</p>
+
+
               </Link>
             </div>
           </div>

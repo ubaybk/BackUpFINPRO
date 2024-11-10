@@ -5,6 +5,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import Footer from "../../components/footer";
 import ButtonBack from "../../components/buttonback";
 import { followingContext } from "../../context/FollowingContextProvider";
+import usePhotoDefault from '../../hooks/usePhotoDefault'
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -16,6 +17,7 @@ const DetailUser = () => {
   const [logOut, setLogOut] = useState(false);
   const [followUser, setFollowUser] = useState("Ikuti");
   const { dataMyfollowing } = useContext(followingContext);
+  const defaultPhoto = usePhotoDefault();
 
   const getDetailUser = () => {
     axios
@@ -186,13 +188,13 @@ const DetailUser = () => {
             </div>
           </div>
         </div>
-        <div>
-          <div className="grid grid-cols-3">
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2 gap-4 mb-36">
             {postUser.map((item, index) => (
               <div key={index}>
                 <Link to={`/detailpost/${userId}`}>
-                <img className="w-[200px] h-[200px]" src={item.imageUrl} alt="" />
-                <h1>{item.caption}</h1>
+                <img className="w-[171px] h-[189px] rounded-lg" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
+                {/* <h1>{item.caption}</h1> */}
                 </Link>
               </div>
             ))}
