@@ -85,7 +85,7 @@ const ExplorePost = () => {
                   onError={(e) => {
                     e.target.src = defaultPhoto;
                   }}
-                  className="w-40 h-40"
+                  className="w-40 h-40 object-cover"
                   alt="Post"
                 />
               </div>

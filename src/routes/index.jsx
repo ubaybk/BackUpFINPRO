@@ -19,6 +19,7 @@ import Story from "../pages/story";
 import AddStory from "../pages/addStory";
 import DetailExplore from "../pages/detailExplore";
 import DetailPost from "../pages/detailPost";
+import StoryById from "../pages/storyById"
 
 
 export const routes = [
@@ -151,6 +152,17 @@ export const routes = [
         <ProtectedRoute>
          
             <DetailPost/>
+          
+        </ProtectedRoute>
+    )
+  },
+  {
+    path: "/storybyid",
+
+    element: (
+        <ProtectedRoute>
+         
+            <StoryById/>
           
         </ProtectedRoute>
     )

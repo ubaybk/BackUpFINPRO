@@ -1,15 +1,20 @@
-import { useContext } from "react";
-import { getMyFollowingStoriesContext } from "../../../context/GetMyFollowingStoriesContextProvider";
+import { useContext, useState } from "react";
+import { getMyFollowingStoriesContext } from "../../context/GetMyFollowingStoriesContextProvider";
 import { FaPlusCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const MyFollowingStory = () => {
+const StoryById = () => {
   const imgProfile = localStorage.getItem("photo");
   const username = localStorage.getItem("username")
-  const userId = localStorage.getItem("userId")
-  const { dataMyFollowingStory } = useContext(getMyFollowingStoriesContext);
+  const storyId = useParams()
+  
+  const [dataStoryById, setDataStoryById] = useState([])
+//   const { dataMyFollowingStory } = useContext(getMyFollowingStoriesContext);
 
-  console.log("data post story following", dataMyFollowingStory);
+    const getDataStoryById = () => {
+
+    }
+  // console.log("data post story following", dataMyFollowingStory);
   return (
     <>
       <div className="flex items-center gap-3 border-slate-400-500 border-b-2 p-2">
@@ -55,4 +60,4 @@ const MyFollowingStory = () => {
   );
 };
 
-export default MyFollowingStory;
+export default StoryById;

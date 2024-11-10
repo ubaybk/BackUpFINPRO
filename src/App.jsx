@@ -21,7 +21,8 @@ function App() {
     "/followinguserid",
     "/followersuserid",
     "/detailpost",
-    "/detailexplore"
+    "/detailexplore",
+    
   ];
   const showFooter = showFooterPaths.some(path =>
     location.pathname.match(new RegExp(path.replace(':userId', '[^/]+')))

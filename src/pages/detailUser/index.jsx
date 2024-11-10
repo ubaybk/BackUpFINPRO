@@ -193,7 +193,7 @@ const DetailUser = () => {
             {postUser.map((item, index) => (
               <div key={index}>
                 <Link to={`/detailpost/${userId}`}>
-                <img className="w-[171px] h-[189px] rounded-lg" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
+                <img className="w-[171px] h-[189px] rounded-lg object-cover" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
                 {/* <h1>{item.caption}</h1> */}
                 </Link>
               </div>
