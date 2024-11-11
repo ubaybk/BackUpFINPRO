@@ -13,10 +13,6 @@ const NavbarFollow = () => {
   console.log("ini total following", dataMyFollowing);
   console.log("ini total followers", dataMyFollowers);
 
-  
-
- 
-
   return (
     <>
       <div>

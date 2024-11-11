@@ -6,6 +6,7 @@ import Footer from "../../components/footer";
 import ButtonBack from "../../components/buttonback";
 import { followingContext } from "../../context/FollowingContextProvider";
 import usePhotoDefault from '../../hooks/usePhotoDefault'
+import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -134,14 +135,7 @@ const DetailUser = () => {
     <>
       <div className="flex flex-col">
         <div className="p-3">
-          <div className="flex items-center gap-2 mb-3">
-            <Link to={"/followingpost"}>
-              <ButtonBack />
-            </Link>
-            <h1 className="text-[20px]">UbayPix</h1>
-            <FaAngleDown onClick={() => setLogOut(!logOut)} className="text-green-500" />
-            <div>{logOut && <h1 className="text-red-500 mt-2">Logout</h1>}</div>
-          </div>
+          <NavbarFollowingFollowers/>
           <div>
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between text-center">

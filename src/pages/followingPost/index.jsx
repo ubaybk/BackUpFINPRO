@@ -8,6 +8,7 @@ import useTime from "../../hooks/useTime";
 import { getFollowingPostContext } from "../../context/GetFollowingPostContextProvider";
 import MyFollowingStory from "../../components/Story/myFollowingStory";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
+import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
 
 
 const FollowingPost = () => {
@@ -104,6 +105,7 @@ const FollowingPost = () => {
 
   return (
     <div className="pb-20 p-1">
+      <NavbarFollowingFollowers/>
       <MyFollowingStory />
       {posts?.length > 0 ? (
         posts.map((item, index) => (

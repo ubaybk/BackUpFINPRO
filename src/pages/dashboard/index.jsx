@@ -1,23 +1,22 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa6";
 import Footer from "../../components/footer";
 import { Link } from "react-router-dom";
 import Logout from "../../components/logout";
+import { getLoginUserContext } from "../../context/GetLoginUserContextProvider";
 
 
 
 
 
 const Dashboard = () => {
-  const name = localStorage.getItem("name");
-  const photo = localStorage.getItem("photo");
-  const username = localStorage.getItem("username");
-  const bio = localStorage.getItem("bio");
-  const website = localStorage.getItem("website");
   const userId = localStorage.getItem("userId")
   const token = localStorage.getItem("token")
   const apiKey = import.meta.env.VITE_API_KEY;
+
+  const {dataUserLogin} = useContext(getLoginUserContext)
+  console.log('ini buat dashboar data login',dataUserLogin)
 
   const [post, setPost] = useState([])
   const [totalPost, setTotalPost] = useState([])
@@ -85,7 +84,7 @@ const Dashboard = () => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between text-center">
               <div>
-                <img src={photo} className="w-[70px] h-[70px] rounded-full" alt="" />
+                <img src={dataUserLogin.profilePictureUrl} className="w-[70px] h-[70px] object-cover rounded-full" alt="" />
               </div>
               <div className="flex gap-5">
                 <div>
@@ -107,18 +106,18 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="">
-              <h1>{name}</h1>
-              <p className="text-gray-400">@{username}</p>
-              <p>{bio}</p>
+              <h1>{dataUserLogin.name}</h1>
+              <p className="text-gray-400">@{dataUserLogin.username}</p>
+              <p>{dataUserLogin.bio}</p>
 
               <p>
                 <a
-                  href={website}
+                  href={dataUserLogin.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-500 hover:underline"
                 >
-                  {website}
+                  {dataUserLogin.website}
                 </a>
               </p>
             </div>

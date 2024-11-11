@@ -9,6 +9,8 @@ import { FollowingByUserIdContextProvider } from "./context/FollowingByUserIdCon
 import { FollowersByUserIdContextProvider } from "./context/FollowersByUserIdContextProvider.jsx";
 import { GetFollowingPostContextProvider } from "./context/GetFollowingPostContextProvider.jsx";
 import { GetMyFollowingStoriesContextProvider } from "./context/GetMyFollowingStoriesContextProvider.jsx";
+import { GetLoginUserContextProvider } from "./context/GetLoginUserContextProvider.jsx";
+import { UploadImageContextProvider } from "./context/UploadImageContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -19,8 +21,13 @@ createRoot(document.getElementById("root")).render(
             <FollowersByUserIdContextProvider>
               <GetFollowingPostContextProvider>
                 <GetMyFollowingStoriesContextProvider>
-{/* bayu test */}
+                  <GetLoginUserContextProvider>
+                    <UploadImageContextProvider>
+
                 <App />
+                    </UploadImageContextProvider>
+
+                  </GetLoginUserContextProvider>
                 </GetMyFollowingStoriesContextProvider>
                 
               </GetFollowingPostContextProvider>

@@ -19,7 +19,8 @@ import Story from "../pages/story";
 import AddStory from "../pages/addStory";
 import DetailExplore from "../pages/detailExplore";
 import DetailPost from "../pages/detailPost";
-import StoryById from "../pages/storyById"
+// import StoryById from "../pages/storyById"
+import UpdateUser from "../pages/updateUser";
 
 
 export const routes = [
@@ -156,13 +157,24 @@ export const routes = [
         </ProtectedRoute>
     )
   },
+  // {
+  //   path: "/storybyid",
+
+  //   element: (
+  //       <ProtectedRoute>
+         
+  //           <StoryById/>
+          
+  //       </ProtectedRoute>
+  //   )
+  // },
   {
-    path: "/storybyid",
+    path: "/updateuser",
 
     element: (
         <ProtectedRoute>
          
-            <StoryById/>
+            <UpdateUser/>
           
         </ProtectedRoute>
     )
