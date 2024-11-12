@@ -20,7 +20,7 @@ const Story = () => {
   const getStoryById = () => {
     axios
       .get(
-        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/story/${storyId} || ${userId}`,
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/story/${storyId}`,
         {
           headers: {
             "Content-Type": "application/json",

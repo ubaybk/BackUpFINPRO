@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { IoHomeSharp } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { getLoginUserContext } from "../context/GetLoginUserContextProvider";
 
 const Footer = () => {
   const photoProfile = localStorage.getItem("photo");
+
+  const {dataUserLogin} = useContext(getLoginUserContext)
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-green-500">
@@ -22,7 +26,7 @@ const Footer = () => {
           <div className="">
             <img
               className="border-2 w-10 h-10 border-white rounded-full"
-              src={photoProfile}
+              src={dataUserLogin.profilePictureUrl}
               alt=""
             />
           </div>

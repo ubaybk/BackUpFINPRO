@@ -4,6 +4,10 @@ import { useParams } from "react-router-dom";
 import useTime from "../../hooks/useTime";
 import { CiMenuKebab } from "react-icons/ci";
 import { MdEdit, MdDelete } from "react-icons/md";
+import ButtonBack from "../../components/buttonback";
+import useHandleBack from "../../hooks/useHandleBack";
+import { FaRegHeart, FaRegComment } from "react-icons/fa";
+import Comment from "../../components/comment"; // Pastikan ini adalah komponen komentar yang kamu gunakan
 
 const DetailPost = () => {
   const { userId } = useParams();
@@ -12,10 +16,12 @@ const DetailPost = () => {
   const token = localStorage.getItem("token");
   const userLogin = localStorage.getItem("userId");
   const timeAgo = useTime();
-  const [menu, setMenu] = useState(null); // Ubah dari boolean ke null atau index
+  const [menu, setMenu] = useState(null);
+  const [showComments, setShowComments] = useState({});
+  const handleBack = useHandleBack();
 
   const handleMenu = (index) => {
-    setMenu(menu === index ? null : index); // Tampilkan menu untuk item tertentu
+    setMenu(menu === index ? null : index);
   };
 
   const getPostUserId = () => {
@@ -63,12 +69,68 @@ const DetailPost = () => {
     }
   };
 
+  const handleLike = (postId, isLike, index) => {
+    if (!token) {
+      console.error("User not authenticated");
+      return;
+    }
+
+    // Optimistic Update
+    const updatedPosts = [...dataPostUserId];
+    updatedPosts[index] = {
+      ...updatedPosts[index],
+      isLike: !isLike,
+      totalLikes: isLike ? updatedPosts[index].totalLikes - 1 : updatedPosts[index].totalLikes + 1,
+    };
+    setDataPostUserId(updatedPosts);
+
+    // URL untuk like/unlike
+    const apiUrl = isLike
+      ? "https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/unlike"
+      : "https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/like";
+
+    axios
+      .post(
+        apiUrl,
+        { postId: postId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            apiKey: apiKey,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        const confirmedPosts = [...dataPostUserId];
+        confirmedPosts[index].totalLikes = response.data.totalLikes || confirmedPosts[index].totalLikes;
+        setDataPostUserId(confirmedPosts);
+      })
+      .catch((error) => {
+        console.error("Error liking/unliking post", error);
+        setDataPostUserId(dataPostUserId);
+      });
+  };
+
+  const toggleShowComment = (postId) => {
+    setShowComments((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
+  };
+
   useEffect(() => {
     getPostUserId();
   }, [userId]);
 
   return (
     <div>
+      <div className="flex items-center gap-3">
+        <button onClick={handleBack}>
+          <ButtonBack />
+        </button>
+        <h1>Postingan</h1>
+      </div>
       {dataPostUserId.map((item, index) => (
         <div key={index} className="mb-5">
           <div className="flex items-center justify-between">
@@ -106,12 +168,33 @@ const DetailPost = () => {
           </div>
           <div className="flex flex-col gap-2">
             <img src={item.imageUrl} className="w-full" alt="" />
+            <div className="text-2xl flex items-center gap-12">
+              <div className="flex items-center gap-3">
+                <FaRegHeart
+                  className={`cursor-pointer ${item.isLike ? "text-red-500" : "text-gray-500"}`}
+                  onClick={() => handleLike(item.id, item.isLike, index)}
+                />
+                <p className="text-[17px]">{item.totalLikes}</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <FaRegComment />
+                <button
+                  onClick={() => toggleShowComment(item.id)}
+                  className="text-[12px] text-gray-500"
+                >
+                  {showComments[item.id] ? "Sembunyikan komentar" : "Lihat semua komentar"}
+                </button>
+              </div>
+            </div>
             <div className="flex flex-col">
               <p>{item?.user?.username}</p>
               <p>{item?.caption}</p>
               <p className="text-[10px] text-gray-500">
                 {timeAgo(item?.updatedAt)}
               </p>
+              {showComments[item.id] && (
+                <Comment postId={item.id} /> 
+              )}
             </div>
           </div>
         </div>

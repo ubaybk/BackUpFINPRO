@@ -2,12 +2,15 @@ import { useContext } from "react";
 import { getMyFollowingStoriesContext } from "../../../context/GetMyFollowingStoriesContextProvider";
 import { FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { getLoginUserContext } from "../../../context/GetLoginUserContextProvider";
 
 const MyFollowingStory = () => {
-  const imgProfile = localStorage.getItem("photo");
-  const username = localStorage.getItem("username")
   const userId = localStorage.getItem("userId")
   const { dataMyFollowingStory } = useContext(getMyFollowingStoriesContext);
+
+  const {dataUserLogin} = useContext(getLoginUserContext)
+
+  console.log('data context user LOGIN',dataUserLogin)
 
   console.log("data post story following", dataMyFollowingStory);
   return (
@@ -17,11 +20,11 @@ const MyFollowingStory = () => {
           <div>
             <Link to={``}>
               <img
-                src={imgProfile}
+                src={dataUserLogin.profilePictureUrl}
                 className=" rounded-full w-[60px] h-[60px]"
                 alt=""
               />
-              <p>{username}</p>
+              <p>{dataUserLogin.username}</p>
             </Link>
           </div>
           <div>

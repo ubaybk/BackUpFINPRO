@@ -12,7 +12,7 @@ const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  // Validasi dengan Yup
+  // Validation with Yup
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Email tidak valid")

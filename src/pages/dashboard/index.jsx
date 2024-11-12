@@ -84,7 +84,9 @@ const Dashboard = () => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between text-center">
               <div>
-                <img src={dataUserLogin.profilePictureUrl} className="w-[70px] h-[70px] object-cover rounded-full" alt="" />
+              {dataUserLogin && dataUserLogin.profilePictureUrl && (
+  <img src={dataUserLogin.profilePictureUrl} className="w-[70px] h-[70px] object-cover rounded-full" alt="" />
+)}
               </div>
               <div className="flex gap-5">
                 <div>
