@@ -1,20 +1,23 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { IoSearch } from "react-icons/io5";
 import ButtonBack from "../../components/buttonback";
 import { Link } from "react-router-dom";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
-import useIntersectionObserver from "../../hooks/useIntersectionObserver"; // Import hook baru
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import { debounce } from "lodash";
+import Layout from "../../components/layout";
 
 const ExplorePost = () => {
   const [explorePost, setExplorePost] = useState([]); // Menyimpan semua post yang dimuat
+  const [filteredPost, setFilteredPost] = useState([]); // Menyimpan hasil pencarian
   const [currentPage, setCurrentPage] = useState(1); // Menyimpan halaman saat ini
   const [loading, setLoading] = useState(false); // Untuk menandakan sedang memuat
   const [hasMore, setHasMore] = useState(true); // Untuk mengecek apakah masih ada data untuk dimuat
+  
   const apiKey = import.meta.env.VITE_API_KEY;
   const token = localStorage.getItem("token");
   const defaultPhoto = usePhotoDefault();
-
   const lastPostRef = useRef(null); // Referensi ke elemen yang terakhir untuk observer
 
   const getExplorePost = (page) => {
@@ -31,11 +34,12 @@ const ExplorePost = () => {
         }
       )
       .then((res) => {
-        // Tambahkan data baru ke list yang sudah ada
-        setExplorePost((prevPosts) => [...prevPosts, ...res.data.data.posts]);
+        const newPosts = res.data.data.posts;
+        setExplorePost((prevPosts) => [...prevPosts, ...newPosts]);
+        setFilteredPost((prevPosts) => [...prevPosts, ...newPosts]);
 
         // Periksa apakah halaman berikutnya masih ada
-        setHasMore(res.data.data.posts.length > 0);
+        setHasMore(newPosts.length > 0);
       })
       .finally(() => {
         setLoading(false); // Selesai memuat data
@@ -50,7 +54,6 @@ const ExplorePost = () => {
   const handleObserver = (entries) => {
     const target = entries[0];
     if (target.isIntersecting && !loading && hasMore) {
-      // Jika elemen terakhir terlihat, dan tidak sedang memuat serta masih ada data
       setCurrentPage((prevPage) => prevPage + 1); // Pindah ke halaman berikutnya
     }
   };
@@ -58,8 +61,35 @@ const ExplorePost = () => {
   // Menggunakan custom hook
   useIntersectionObserver(handleObserver, { rootMargin: "20px" }, lastPostRef);
 
+  // Fungsi debounce untuk pencarian username
+  const handleSearch = useCallback(
+    debounce((query) => {
+      if (query) {
+        setFilteredPost(
+          explorePost.filter(
+            (item) =>
+              item.user &&
+              item.user.username &&
+              item.user.username.toLowerCase().includes(query.toLowerCase())
+          )
+        );
+      } else {
+        setFilteredPost(explorePost);
+      }
+    }, 500),
+    [explorePost]
+  );
+
+  // Fungsi yang dipanggil saat input berubah
+  const handleChange = (e) => {
+    const query = e.target.value;
+    handleSearch(query);
+  };
+
   return (
     <>
+    <Layout>
+    <div className="">
       <div className="flex items-center py-2 px-2 gap-1 mb-1">
         <ButtonBack />
         <div className="relative flex items-center flex-grow">
@@ -68,12 +98,13 @@ const ExplorePost = () => {
             placeholder="Search"
             type="text"
             className="w-full text-white h-8 bg-green-300 rounded-md pl-8"
+            onChange={handleChange}
           />
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-1">
-        {explorePost.map((item, index) => (
+        {filteredPost.map((item, index) => (
           <div key={index}>
             <Link
               to={`/detailexplore`}
@@ -85,9 +116,10 @@ const ExplorePost = () => {
                   onError={(e) => {
                     e.target.src = defaultPhoto;
                   }}
-                  className="w-40 h-40 object-cover"
+                  className="w-40 h-40 md:w-60 md:h-60 object-cover"
                   alt="Post"
                 />
+                {/* <p>{item.user?.username}</p> Menampilkan username */}
               </div>
             </Link>
           </div>
@@ -100,6 +132,10 @@ const ExplorePost = () => {
       )}
 
       {loading && <p>Loading more posts...</p>} {/* Menampilkan indikator loading */}
+
+    </div>
+
+    </Layout>
     </>
   );
 };

@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useDarkMode from "../hooks/useDarkMode";
 import DarkModeToggle from "../components/DarkModeToggle";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import { FaHome } from "react-icons/fa";
+import { MdExplore } from "react-icons/md";
 
 const Logout = () => {
   const photoProfile = localStorage.getItem("photo");
@@ -38,7 +40,7 @@ const Logout = () => {
 
   return (
     <>
-      <div className="bg-green-200 p-5 fixed bottom-0 z-50 left-0 right-0 animate-slide-up">
+      <div className="bg-green-200 p-5 fixed bottom-0 z-50 left-0 right-0 animate-slide-up md:hidden">
         <div>
           <div className="bg-green-500 p-2 rounded-md flex items-center text-white justify-between ">
             <div className="flex items-center gap-3">
@@ -51,7 +53,7 @@ const Logout = () => {
             </div>
             <FaCheckCircle className="text-[25px]" />
           </div>
-          <Link to={'/updateuser'}>
+          <Link to={"/updateuser"}>
             <div className="flex items-center justify-center gap-3 text-[30px]">
               <MdOutlineTipsAndUpdates />
               <p>Update Profile</p>
@@ -70,6 +72,56 @@ const Logout = () => {
             </h1>
           </div>
         </div>
+      </div>
+
+      {/* footer web */}
+      <div className="fixed gap-3 left-0 top-16 w-[20%] p-2 hidden md:flex flex-col">
+        <Link to={'/followingpost'}>
+        <div className="text-black text-[40px] flex items-center gap-2">
+          <FaHome />
+          <h1 className="text-[16px]">Beranda</h1>
+        </div>
+        </Link>
+        
+          <Link to={"/dashboard"}>
+            <div className=" rounded-md flex items-center text-black ">
+              <div className="flex items-center gap-2 ">
+                <img
+                  className="w-10 h-10 rounded-full"
+                  src={photoProfile}
+                  alt={username}
+                />
+                <h1>Profile</h1>
+              </div>
+            </div>
+          </Link>
+          
+         <Link to={'/explorepost'}>
+          <div className="text-black flex items-center text-[50px]  gap-2">
+          <MdExplore className="ml-[-5px]" />
+          <h1 className="text-[16px]">Explore</h1>
+          </div>
+         </Link>
+          
+          <Link to={"/updateuser"}>
+            <div className="flex items-center justify-center text-black gap-3 text-[30px]">
+              <MdOutlineTipsAndUpdates />
+              <p>Update Profile</p>
+            </div>
+          </Link>
+          <div className="fixed bottom-5 font-bold text-[30px]">
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-green-500">Dark Mode</p>
+              <DarkModeToggle
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+              />
+            </div>
+            <h1 onClick={handleLogout} className="text-red-600">
+              LOG OUT
+            </h1>
+          </div>
+        
       </div>
     </>
   );

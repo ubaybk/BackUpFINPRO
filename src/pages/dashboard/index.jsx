@@ -5,6 +5,7 @@ import Footer from "../../components/footer";
 import { Link } from "react-router-dom";
 import Logout from "../../components/logout";
 import { getLoginUserContext } from "../../context/GetLoginUserContextProvider";
+import Layout from "../../components/layout";
 
 
 
@@ -72,6 +73,7 @@ const Dashboard = () => {
 
   return (
     <>
+    <Layout>
     <div className="flex flex-col">
       <div className="p-3">
         <div className="flex items-center gap-2 mb-3">
@@ -141,6 +143,8 @@ const Dashboard = () => {
         
       </div>
     </div>
+
+    </Layout>
     </>
   );
 };

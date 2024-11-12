@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Layout from "../../components/layout";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -72,6 +73,8 @@ const Login = () => {
 
   return (
     <>
+    <Layout>
+      <div className="md:border-green-500 md:border-2 md:rounded-xl md:mt-10">
       <ToastContainer />
       <div className="p-3">
         <Link to={"/"}>
@@ -140,6 +143,10 @@ const Login = () => {
           
         </Formik>
       </div>
+
+      </div>
+
+    </Layout>
     </>
   );
 };

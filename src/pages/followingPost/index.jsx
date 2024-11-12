@@ -9,6 +9,7 @@ import { getFollowingPostContext } from "../../context/GetFollowingPostContextPr
 import MyFollowingStory from "../../components/Story/myFollowingStory";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
+import Layout from "../../components/layout";
 
 
 const FollowingPost = () => {
@@ -104,6 +105,8 @@ const FollowingPost = () => {
   }, [dataGetFollowingPost]);
 
   return (
+    <>
+    <Layout>
     <div className="pb-20 p-1">
       <NavbarFollowingFollowers/>
       <MyFollowingStory />
@@ -164,6 +167,9 @@ const FollowingPost = () => {
         <p>Loading posts...</p>
       )}
     </div>
+      
+    </Layout>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Layout from "../../components/layout";
 
 const Home = () => {
   const navigate = useNavigate()
@@ -11,8 +12,12 @@ const Home = () => {
   },[])
   return (
     <>
-      <div className="">
+   
+      <div className="md:flex md:bg-green-200 items-center justify-center min-h-screen">
+        <div>
         <img className="w-full" src="./img/herosection.png" alt="" />
+
+        </div>
         <div className="text-center px-4 flex flex-col gap-5">
           <h1 className="font-medium text-[43px] ">
             Let's connect with each other
