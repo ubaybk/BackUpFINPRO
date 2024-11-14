@@ -12,7 +12,7 @@ export const GetFollowingPostContextProvider = ({children}) => {
     const getDataFollowingPostContextProvider = () => {
         axios
         .get(
-            `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/following-post?size=10&page=1`,
+            `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/following-post?size=100&page=1`,
             {
               headers: {
                 "Content-Type": "application/json",

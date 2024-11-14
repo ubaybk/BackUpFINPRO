@@ -7,6 +7,7 @@ import ButtonBack from "../../components/buttonback";
 import { followingContext } from "../../context/FollowingContextProvider";
 import usePhotoDefault from '../../hooks/usePhotoDefault'
 import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
+import Layout from "../../components/layout";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -133,6 +134,7 @@ const DetailUser = () => {
 
   return (
     <>
+    <Layout>
       <div className="flex flex-col">
         <div className="p-3">
           <NavbarFollowingFollowers/>
@@ -183,7 +185,7 @@ const DetailUser = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="grid grid-cols-2 gap-4 mb-36">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-36">
             {postUser.map((item, index) => (
               <div key={index}>
                 <Link to={`/detailpost/${userId}`}>
@@ -195,6 +197,8 @@ const DetailUser = () => {
           </div>
         </div>
       </div>
+
+    </Layout>
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { GrGallery } from "react-icons/gr";
+import Layout from "../../components/layout";
 
 const PostCreate = () => {
   const navigate = useNavigate()
@@ -86,7 +87,8 @@ const PostCreate = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3 p-3 h-screen mb-56">
+    <Layout>
+      <div className="flex flex-col gap-3 p-3 h-screen mb-56 md:w-[700px]">
         <div className="flex items-center gap-5 mb-5">
           <Link to={"/"}>
             <IoMdClose />
@@ -95,7 +97,7 @@ const PostCreate = () => {
         </div>
         {preview && (
           <div className="flex flex-col items-center">
-            <img src={preview} alt="Preview" className="w-[300px] h-[300px]" />
+            <img src={preview} alt="Preview" className="w-[300px] h-[300px] object-cover" />
           </div>
         )}
         <div>
@@ -124,6 +126,8 @@ const PostCreate = () => {
           Upload & Send
         </button>
       </div>
+
+    </Layout>
     </>
   );
 };

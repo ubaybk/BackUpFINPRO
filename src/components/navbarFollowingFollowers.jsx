@@ -39,7 +39,7 @@ const NavbarFollowingFollowers = () => {
                 </div>
                 </Link>
 
-                <Link>
+                <Link to={'/testsearch'}>
                 <div className="flex items-center gap-3 text-white">
                   <p>Followers</p>
                   <FaPersonCirclePlus />

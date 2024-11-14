@@ -21,6 +21,8 @@ import DetailExplore from "../pages/detailExplore";
 import DetailPost from "../pages/detailPost";
 // import StoryById from "../pages/storyById"
 import UpdateUser from "../pages/updateUser";
+import TestSeacrh from "../pages/testSearch";
+import EditPost from "../pages/editPost";
 
 
 export const routes = [
@@ -157,6 +159,17 @@ export const routes = [
         </ProtectedRoute>
     )
   },
+  {
+    path: "/testsearch",
+
+    element: (
+        <ProtectedRoute>
+         
+            <TestSeacrh/>
+          
+        </ProtectedRoute>
+    )
+  },
   // {
   //   path: "/storybyid",
 
@@ -175,6 +188,17 @@ export const routes = [
         <ProtectedRoute>
          
             <UpdateUser/>
+          
+        </ProtectedRoute>
+    )
+  },
+  {
+    path: "/editpost/:postId",
+
+    element: (
+        <ProtectedRoute>
+         
+            <EditPost/>
           
         </ProtectedRoute>
     )

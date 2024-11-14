@@ -5,12 +5,12 @@ import ButtonBack from "../../components/buttonback";
 import { Link } from "react-router-dom";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import { debounce } from "lodash";
+
 import Layout from "../../components/layout";
+import SearchUsername from "../../components/searchUsername";
 
 const ExplorePost = () => {
   const [explorePost, setExplorePost] = useState([]); // Menyimpan semua post yang dimuat
-  const [filteredPost, setFilteredPost] = useState([]); // Menyimpan hasil pencarian
   const [currentPage, setCurrentPage] = useState(1); // Menyimpan halaman saat ini
   const [loading, setLoading] = useState(false); // Untuk menandakan sedang memuat
   const [hasMore, setHasMore] = useState(true); // Untuk mengecek apakah masih ada data untuk dimuat
@@ -36,7 +36,7 @@ const ExplorePost = () => {
       .then((res) => {
         const newPosts = res.data.data.posts;
         setExplorePost((prevPosts) => [...prevPosts, ...newPosts]);
-        setFilteredPost((prevPosts) => [...prevPosts, ...newPosts]);
+       
 
         // Periksa apakah halaman berikutnya masih ada
         setHasMore(newPosts.length > 0);
@@ -61,50 +61,30 @@ const ExplorePost = () => {
   // Menggunakan custom hook
   useIntersectionObserver(handleObserver, { rootMargin: "20px" }, lastPostRef);
 
-  // Fungsi debounce untuk pencarian username
-  const handleSearch = useCallback(
-    debounce((query) => {
-      if (query) {
-        setFilteredPost(
-          explorePost.filter(
-            (item) =>
-              item.user &&
-              item.user.username &&
-              item.user.username.toLowerCase().includes(query.toLowerCase())
-          )
-        );
-      } else {
-        setFilteredPost(explorePost);
-      }
-    }, 500),
-    [explorePost]
-  );
+  
 
-  // Fungsi yang dipanggil saat input berubah
-  const handleChange = (e) => {
-    const query = e.target.value;
-    handleSearch(query);
-  };
+  
 
   return (
     <>
     <Layout>
     <div className="">
       <div className="flex items-center py-2 px-2 gap-1 mb-1">
-        <ButtonBack />
-        <div className="relative flex items-center flex-grow">
+        
+        <SearchUsername/>
+        {/* <div className="relative flex items-center flex-grow">
           <IoSearch className="absolute left-2 text-gray-600" />
           <input
             placeholder="Search"
             type="text"
             className="w-full text-white h-8 bg-green-300 rounded-md pl-8"
-            onChange={handleChange}
+            // onChange={}
           />
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-3 gap-1">
-        {filteredPost.map((item, index) => (
+        {explorePost.map((item, index) => (
           <div key={index}>
             <Link
               to={`/detailexplore`}
@@ -116,7 +96,7 @@ const ExplorePost = () => {
                   onError={(e) => {
                     e.target.src = defaultPhoto;
                   }}
-                  className="w-40 h-40 md:w-60 md:h-60 object-cover"
+                  className="w-40 h-40 md:w-56 md:h-60  object-cover"
                   alt="Post"
                 />
                 {/* <p>{item.user?.username}</p> Menampilkan username */}

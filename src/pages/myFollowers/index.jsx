@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import NavbarFollow from "../../components/navbarFolow";
 import { followersContext } from "../../context/FollowersContextProvider";
 import { Link } from "react-router-dom";
+import Layout from "../../components/layout";
 
 const MyFollowers = () => {
   const dataMyFollowers = useContext(followersContext);
@@ -10,7 +11,8 @@ const MyFollowers = () => {
 
   return (
     <>
-      <div className="px-2">
+    <Layout>
+      <div className="px-2 md:w-[700px]">
         <NavbarFollow />
 
         <div className="mb-32 mt-5 flex flex-col gap-4">
@@ -33,6 +35,8 @@ const MyFollowers = () => {
           ))}
         </div>
       </div>
+
+    </Layout>
     </>
   );
 };
