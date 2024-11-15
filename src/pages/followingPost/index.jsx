@@ -10,6 +10,7 @@ import MyFollowingStory from "../../components/Story/myFollowingStory";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
 import Layout from "../../components/layout";
+import FollowingPostSide from "../../components/followingPostSide";
 
 
 const FollowingPost = () => {
@@ -126,7 +127,7 @@ const FollowingPost = () => {
               </Link>
             </div>
             <div className="flex flex-col items-center">
-              <img src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}} className="w-[358px] h-[329px] rounded-md object-cover" alt="" />
+              <img src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}} className="w-[500px] h-[329px] rounded-md object-cover" alt="" />
             </div>
             <div className="px-3 mb-3">
               <div className="text-2xl flex items-center gap-12">
@@ -169,6 +170,8 @@ const FollowingPost = () => {
     </div>
       
     </Layout>
+
+    <FollowingPostSide/>
     </>
   );
 };

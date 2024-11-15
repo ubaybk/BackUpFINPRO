@@ -142,7 +142,9 @@ const DetailUser = () => {
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between text-center">
                 <div>
-                  <img src={detailUser.profilePictureUrl} className="w-[70px] rounded-full" alt="" />
+                  <img src={detailUser.profilePictureUrl || defaultPhoto} onError={(e) => {
+                        e.target.src = defaultPhoto;
+                      }} className="w-[90px] h-[90px] rounded-full" alt="" />
                 </div>
                 <div className="flex gap-5">
                   <div>
@@ -189,7 +191,7 @@ const DetailUser = () => {
             {postUser.map((item, index) => (
               <div key={index}>
                 <Link to={`/detailpost/${userId}`}>
-                <img className="w-[171px] h-[189px] rounded-lg object-cover" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
+                <img className="w-[151px] h-[189px] rounded-lg object-cover" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
                 {/* <h1>{item.caption}</h1> */}
                 </Link>
               </div>

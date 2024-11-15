@@ -8,14 +8,17 @@ import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { useContext } from "react";
+import { getLoginUserContext } from "../context/GetLoginUserContextProvider";
 
 const Logout = () => {
-  const photoProfile = localStorage.getItem("photo");
-  const username = localStorage.getItem("username");
   const apiKey = import.meta.env.VITE_API_KEY;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [darkMode, toggleDarkMode] = useDarkMode();
+  const { dataUserLogin } = useContext(getLoginUserContext);
+
+  console.log("ini dari logout USER", dataUserLogin);
 
   const handleLogout = () => {
     axios
@@ -47,11 +50,11 @@ const Logout = () => {
           <div className="bg-green-500 p-2 rounded-md flex items-center text-white justify-between ">
             <div className="flex items-center gap-3">
               <img
-                className="w-10 h-10 rounded-full"
-                src={photoProfile}
-                alt={username}
+                className="w-10 h-10 rounded-full object-cover"
+                src={dataUserLogin.profilePictureUrl}
+                alt={dataUserLogin.username}
               />
-              <h1>{username}</h1>
+              <h1>{dataUserLogin.username}</h1>
             </div>
             <FaCheckCircle className="text-[25px]" />
           </div>
@@ -77,36 +80,34 @@ const Logout = () => {
       </div>
 
       {/* footer web */}
-      <div className="fixed left-0 top-0 border-r-2 border-slate-200  w-[20%] min-h-screen  p-2 hidden md:flex flex-col justify-between ">
-        <div className="pl-5">
-          <h1>UbayPix</h1>
-        </div>
+      <div className="fixed left-0 top-0 border-r-2 border-slate-200  w-[20%] min-h-screen  p-2 hidden md:flex flex-col ite justify-between ">
         <div className="flex flex-col gap-3">
-
-        <Link to={'/followingpost'}>
-        <div className="text-black text-[40px] flex items-center gap-3">
-          <FaHome />
-          <h1 className="text-[16px]">Beranda</h1>
-        </div>
-        </Link>
-        
-          
-         <Link to={'/explorepost'}>
-          <div className="text-black flex items-center text-[50px]  gap-3">
-          <MdExplore className="ml-[-5px]" />
-          <h1 className="text-[16px]">Explore</h1>
+          <div>
+            <h1>UbayPix</h1>
           </div>
-         </Link>
-          
+          <Link to={"/followingpost"}>
+            <div className="text-black text-[40px] flex items-center gap-3">
+              <FaHome />
+              <h1 className="text-[16px]">Beranda</h1>
+            </div>
+          </Link>
+
+          <Link to={"/explorepost"}>
+            <div className="text-black flex items-center text-[50px]  gap-3">
+              <MdExplore className="ml-[-5px]" />
+              <h1 className="text-[16px]">Explore</h1>
+            </div>
+          </Link>
+
           <Link to={"/updateuser"}>
             <div className="flex items-center text-black gap-3 ">
-            <MdTipsAndUpdates className="text-[50px]" />
+              <MdTipsAndUpdates className="text-[50px]" />
               <p>Update Profile</p>
             </div>
           </Link>
           <Link to={"/postcreate"}>
             <div className="flex items-center ml-[-5px] text-black gap-3 ">
-            < IoAddCircleOutline className="text-[50px]" />
+              <IoAddCircleOutline className="text-[50px]" />
               <p>Add Post</p>
             </div>
           </Link>
@@ -115,8 +116,8 @@ const Logout = () => {
               <div className="flex items-center gap-2 ">
                 <img
                   className="w-10 h-10 rounded-full"
-                  src={photoProfile}
-                  alt={username}
+                  src={dataUserLogin.profilePictureUrl}
+                  alt={dataUserLogin.username}
                 />
                 <h1>Profile</h1>
               </div>
@@ -124,20 +125,45 @@ const Logout = () => {
           </Link>
         </div>
 
-          <div className="flex flex-col font-bold text-[15px]">
-            <div className="flex items-center  gap-2">
-              <p className="text-green-500">Dark Mode</p>
-              <DarkModeToggle
-                darkMode={darkMode}
-                toggleDarkMode={toggleDarkMode}
-              />
-            </div>
-            <h1 onClick={handleLogout} className="text-red-600">
-              LOG OUT
-            </h1>
+        <div className="flex flex-col font-bold text-[15px]">
+          <div className="flex items-center  gap-2">
+            <p className="text-green-500">Dark Mode</p>
+            <DarkModeToggle
+              darkMode={darkMode}
+              toggleDarkMode={toggleDarkMode}
+            />
           </div>
-        
+          <h1 onClick={handleLogout} className="text-red-600">
+            LOG OUT
+          </h1>
+        </div>
       </div>
+
+      {/* <div className="fixed w-[30%] top-0 mt-5 right-0 hidden md:flex flex-col gap-10">
+        <Link to={"/dashboard"}>
+          <div className=" rounded-md flex items-center text-black ">
+            <div className="flex items-center gap-3 ">
+              <img
+                className="w-8 h-8 rounded-full"
+                src={dataUserLogin.profilePictureUrl}
+                alt={dataUserLogin.username}
+              />
+              <div className="leading-tight">
+                <p className="text-[12px]">{dataUserLogin.username}</p>
+                <p className="text-gray-400 text-[12px]">
+                  {dataUserLogin.name}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
+
+        <div>
+          <div>
+            <p className="text-slate-500 text-[14px]">Disarankan untuk Anda</p>
+          </div>
+        </div>
+      </div> */}
     </>
   );
 };

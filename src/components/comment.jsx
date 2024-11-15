@@ -112,7 +112,7 @@ const Comment = ({ postId, onCommentData  }) => {
           onChange={handleChangeComment}
           name="comment"
           placeholder="add comment"
-          className="pl-3 mt-1 block w-full  focus:ring-indigo-500 focus:border-indigo-500 "
+          className="pl-3 mt-1 block w-full rounded-xl p-2  focus:ring-indigo-500 focus:border-indigo-500 "
         />
         <div className="bg-green-500 p-2 rounded-md">
         <FaAngleDoubleUp onClick={handlePostComment} />

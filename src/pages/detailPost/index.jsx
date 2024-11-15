@@ -140,7 +140,7 @@ const DetailPost = () => {
             <h1>Postingan</h1>
           </div>
           {dataPostUserId.map((item, index) => (
-            <div key={index} className="mb-5">
+            <div key={index} className="mb-5 flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <img
@@ -177,7 +177,7 @@ const DetailPost = () => {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <img src={item.imageUrl} className="w-[500px]" alt="" />
+                <img src={item.imageUrl} className="w-full h-[337px] rounded-xl object-cover" alt="" />
                 <div className="text-2xl flex items-center gap-12">
                   <div className="flex items-center gap-3">
                     <FaRegHeart

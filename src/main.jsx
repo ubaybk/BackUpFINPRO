@@ -11,6 +11,7 @@ import { GetFollowingPostContextProvider } from "./context/GetFollowingPostConte
 import { GetMyFollowingStoriesContextProvider } from "./context/GetMyFollowingStoriesContextProvider.jsx";
 import { GetLoginUserContextProvider } from "./context/GetLoginUserContextProvider.jsx";
 import { UploadImageContextProvider } from "./context/UploadImageContextProvider.jsx";
+import { GetAllExportPostContextProvider } from "./context/GetAllExplorePostContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -23,13 +24,12 @@ createRoot(document.getElementById("root")).render(
                 <GetMyFollowingStoriesContextProvider>
                   <GetLoginUserContextProvider>
                     <UploadImageContextProvider>
-
-                <App />
+                      <GetAllExportPostContextProvider>
+                        <App />
+                      </GetAllExportPostContextProvider>
                     </UploadImageContextProvider>
-
                   </GetLoginUserContextProvider>
                 </GetMyFollowingStoriesContextProvider>
-                
               </GetFollowingPostContextProvider>
             </FollowersByUserIdContextProvider>
           </FollowingByUserIdContextProvider>
