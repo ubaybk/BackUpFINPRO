@@ -135,7 +135,7 @@ const DetailUser = () => {
   return (
     <>
     <Layout>
-      <div className="flex flex-col">
+      <div className="flex flex-col md:ml-40">
         <div className="p-3">
           <NavbarFollowingFollowers/>
           <div>
@@ -191,7 +191,7 @@ const DetailUser = () => {
             {postUser.map((item, index) => (
               <div key={index}>
                 <Link to={`/detailpost/${userId}`}>
-                <img className="w-[151px] h-[189px] rounded-lg object-cover" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
+                <img className="w-[179px] h-[189px] rounded-lg object-cover" src={item.imageUrl || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} alt="" />
                 {/* <h1>{item.caption}</h1> */}
                 </Link>
               </div>

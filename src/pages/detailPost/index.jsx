@@ -9,6 +9,7 @@ import useHandleBack from "../../hooks/useHandleBack";
 import { FaRegHeart, FaRegComment } from "react-icons/fa";
 import Comment from "../../components/comment"; // Pastikan ini adalah komponen komentar yang kamu gunakan
 import Layout from "../../components/layout";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const DetailPost = () => {
   const { userId } = useParams();
@@ -20,6 +21,7 @@ const DetailPost = () => {
   const [menu, setMenu] = useState(null);
   const [showComments, setShowComments] = useState({});
   const handleBack = useHandleBack();
+  const defaultPhoto = usePhotoDefault();
 
   const handleMenu = (index) => {
     setMenu(menu === index ? null : index);
@@ -177,7 +179,7 @@ const DetailPost = () => {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <img src={item.imageUrl} className="w-full h-[337px] rounded-xl object-cover" alt="" />
+                <img src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}} className="w-full h-[337px] rounded-xl object-cover" alt="" />
                 <div className="text-2xl flex items-center gap-12">
                   <div className="flex items-center gap-3">
                     <FaRegHeart
@@ -201,7 +203,7 @@ const DetailPost = () => {
                   </div>
                 </div>
                 <div className="flex flex-col">
-                  <p>{item?.user?.username}</p>
+                  <p className="font-semibold">{item?.user?.username}</p>
                   <p>{item?.caption}</p>
                   <p className="text-[10px] text-gray-500">
                     {timeAgo(item?.updatedAt)}

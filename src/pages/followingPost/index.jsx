@@ -147,7 +147,7 @@ const FollowingPost = () => {
               </div>
               <div className="flex flex-col">
                 <h1 className="font-semibold">{item.user.username}</h1>
-                <h1>{item.caption}</h1>
+                <h1 className="">{item.caption}</h1>
               </div>
               <button
                 onClick={() => toggleShowComment(item.id)}

@@ -15,7 +15,7 @@ const MyFollowingStory = () => {
   console.log("data post story following", dataMyFollowingStory);
   return (
     <>
-      <div className="flex items-center gap-3 border-slate-400-500 border-b-2 p-2">
+      <div className="flex items-center gap-3 border-slate-400-500 border-b-2 md:border-none p-2">
         <div className="relative">
           <div>
             <Link to={``}>

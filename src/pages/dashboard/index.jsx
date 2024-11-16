@@ -6,11 +6,14 @@ import { Link } from "react-router-dom";
 import Logout from "../../components/logout";
 import { getLoginUserContext } from "../../context/GetLoginUserContextProvider";
 import Layout from "../../components/layout";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
+
 
 const Dashboard = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const apiKey = import.meta.env.VITE_API_KEY;
+  const defaultPhoto = usePhotoDefault();
 
   const { dataUserLogin } = useContext(getLoginUserContext);
   console.log("ini buat dashboar data login", dataUserLogin);
@@ -73,11 +76,11 @@ const Dashboard = () => {
   return (
     <>
       <Layout>
-        <div className="flex flex-col  min-h-screen">
+        <div className="flex flex-col md:ml-40  min-h-screen">
           <div className="p-3">
             <div className="flex items-center gap-2 mb-3">
               <h1 className="text-[20px]">UbayPix</h1>
-              <FaAngleDown onClick={handleLogout} className="text-green-500" />
+              <FaAngleDown onClick={handleLogout} className="text-green-500 md:hidden" />
               {logOut && <Logout />}
             </div>
             <div>
@@ -136,7 +139,7 @@ const Dashboard = () => {
                 <div key={index} className="flex flex-col items-center">
                   <Link to={`/detailpost/${userId}`}>
                     <img
-                      src={item.imageUrl}
+                      src={item.imageUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}}
                       className="w-56 h-60 object-cover"
                       alt=""
                     />

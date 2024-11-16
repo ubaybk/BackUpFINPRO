@@ -101,7 +101,7 @@ const SearchUsername = () => {
     <>
       <ToastContainer />
       
-      <div className="w-full max-w-md mx-auto">
+      <div className="w-full ">
         <div className="flex items-center gap-2">
           <button onClick={handleBack}>
           <ButtonBack/>

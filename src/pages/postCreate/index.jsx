@@ -88,7 +88,7 @@ const PostCreate = () => {
   return (
     <>
     <Layout>
-      <div className="flex flex-col gap-3 p-3 h-screen mb-56 md:w-[700px]">
+      <div className="flex flex-col gap-3 p-3 h-screen mb-56 md:w-[700px] md:ml-40">
         <div className="flex items-center gap-5 mb-5">
           <Link to={"/"}>
             <IoMdClose />

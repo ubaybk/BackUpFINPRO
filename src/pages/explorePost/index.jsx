@@ -68,7 +68,7 @@ const ExplorePost = () => {
   return (
     <>
     <Layout>
-    <div className="">
+    <div className="md:ml-40">
       <div className="flex items-center py-2 px-2 gap-1 mb-1">
         
         <SearchUsername/>
