@@ -146,8 +146,8 @@ const DetailPost = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <img
-                    src={item?.user?.profilePictureUrl}
-                    className="w-10 h-10 rounded-full"
+                    src={item?.user?.profilePictureUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}}
+                    className="w-10 h-10 rounded-full object-cover"
                     alt=""
                   />
                   <p>{item?.user?.username}</p>

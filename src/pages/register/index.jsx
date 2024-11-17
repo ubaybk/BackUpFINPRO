@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
+import Layout from "../../components/layout";
 
 const Register = () => {
   const photo = usePhotoDefault();
@@ -64,6 +65,8 @@ const Register = () => {
   });
 
   return (
+    <>
+    <Layout>
     <div className="p-3">
       <Link to={"/login"}>
         <ButtonBack />
@@ -131,6 +134,9 @@ const Register = () => {
         </div>
       </form>
     </div>
+
+    </Layout>
+    </>
   );
 };
 

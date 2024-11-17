@@ -8,6 +8,7 @@ import { followingContext } from "../../context/FollowingContextProvider";
 import usePhotoDefault from '../../hooks/usePhotoDefault'
 import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
 import Layout from "../../components/layout";
+import { p } from "framer-motion/client";
 
 const DetailUser = () => {
   const { userId } = useParams();
@@ -153,13 +154,13 @@ const DetailUser = () => {
                   </div>
                   <Link to={`/followersuserid/${userId}`}>
                     <div>
-                      <h1>{detailUser.totalFollowers}</h1>
+                      <h1>{detailUser.totalFollowers || <p>0</p> }</h1>
                       <p>pengikut</p>
                     </div>
                   </Link>
                   <Link to={`/followinguserid/${userId}`}>
                     <div>
-                      <h1>{detailUser.totalFollowing}</h1>
+                      <h1>{detailUser.totalFollowing || <p>0</p>}</h1>
                       <p>mengikuti</p>
                     </div>
                   </Link>

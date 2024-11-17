@@ -10,6 +10,9 @@ import { MdTipsAndUpdates } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { useContext } from "react";
 import { getLoginUserContext } from "../context/GetLoginUserContextProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Logout = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -30,6 +33,7 @@ const Logout = () => {
         },
       })
       .then((res) => {
+        // Hapus data di localStorage
         localStorage.removeItem("bio");
         localStorage.removeItem("name");
         localStorage.removeItem("photo");
@@ -39,12 +43,40 @@ const Logout = () => {
         localStorage.removeItem("website");
         localStorage.removeItem("userIdFollow");
         localStorage.removeItem("usernameById");
-        navigate("/");
+  
+        // Tampilkan toast sukses
+        toast.success("Logout berhasil!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+  
+        // Navigasi ke halaman utama setelah beberapa detik
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      })
+      .catch((error) => {
+        // Tampilkan toast error jika ada masalah
+        toast.error("Logout gagal, coba lagi.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
-
+  
   return (
     <>
+    <ToastContainer/>
       <div className="bg-green-200 p-5 fixed bottom-0 z-50 left-0 right-0 animate-slide-up md:hidden">
         <div>
           <div className="bg-green-500 p-2 rounded-md flex items-center text-white justify-between ">
@@ -83,7 +115,11 @@ const Logout = () => {
       <div className="fixed left-0 top-0 border-r-2 border-slate-200  w-[20%] min-h-screen  p-2 hidden md:flex flex-col ite justify-between ">
         <div className="flex flex-col gap-3">
           <div>
-            <h1>UbayPix</h1>
+           <img
+            src="./img/ubaypix-logo.png"
+            alt="UbayPix Logo"
+            className="mb-4 w-[250px] md:w-[150px]" // Sesuaikan ukuran gambar
+          />
           </div>
           <Link to={"/followingpost"}>
             <div className="text-black text-[40px] flex items-center gap-3">

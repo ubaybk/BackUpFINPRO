@@ -4,6 +4,7 @@ import { getLoginUserContext } from "../../context/GetLoginUserContextProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ButtonBack from "../../components/buttonback";
+import Layout from "../../components/layout";
 
 const UpdateUser = () => {
   const { dataUserLogin } = useContext(getLoginUserContext);
@@ -86,7 +87,9 @@ const UpdateUser = () => {
   };
 
   return (
-    <div className="p-6">
+    <>
+    <Layout>
+    <div className="p-6 w-screen md:px-36">
       <div className="flex items-center gap-2 font-semibold text-2xl">
         <button onClick={handleBack}>
           <ButtonBack />
@@ -172,6 +175,9 @@ const UpdateUser = () => {
         </button>
       </form>
     </div>
+
+    </Layout>
+    </>
   );
 };
 
