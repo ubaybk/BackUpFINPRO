@@ -3,6 +3,7 @@ import ButtonBack from "./buttonback";
 import { followingByUserIdContext } from "../context/FollowingByUserIdContextProvider";
 import { useContext, useEffect } from "react";
 import { followersByUserIdContext } from "../context/FollowersByUserIdContextProvider";
+import Layout from "./layout";
 
 const NavbarFollowById = () => {
   const followingByUserId = useContext(followingByUserIdContext);
@@ -16,7 +17,8 @@ const NavbarFollowById = () => {
   useEffect(() => {}, []);
   return (
     <>
-      <div>
+    <Layout>
+      <div className="md:w-[600px]">
         <div className="flex items-center gap-3 py-3 ">
           <Link to={`/detailuser/${userIdFollow}`}>
             <ButtonBack />
@@ -42,6 +44,8 @@ const NavbarFollowById = () => {
           </div>
         </div>
       </div>
+
+    </Layout>
     </>
   );
 };

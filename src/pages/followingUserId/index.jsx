@@ -3,14 +3,17 @@ import { useContext, useEffect, useState } from "react";
 import { followingByUserIdContext } from "../../context/FollowingByUserIdContextProvider";
 import NavbarFollowById from "../../components/navbarFollowById";
 import { Link } from "react-router-dom";
+import Layout from "../../components/layout";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const FollowingUserId = () => {
   const datafollowingByUserIdContext = useContext(followingByUserIdContext);
-
+  const defaultPhoto = usePhotoDefault();
   console.log("following by user id", datafollowingByUserIdContext);
 
   return (
     <>
+    <Layout>
       <div className="px-2">
         <NavbarFollowById />
 
@@ -21,7 +24,7 @@ const FollowingUserId = () => {
                 <Link to={`/detailuser/${item.id}`}>
                 <div className="flex items-center gap-3">
                   <img
-                    src={item.profilePictureUrl}
+                    src={item.profilePictureUrl || defaultPhoto } onError={(e) => {e.target.src=defaultPhoto}}
                     alt={item.username}
                     className="w-10 h-10 rounded-full"
                   />
@@ -36,6 +39,8 @@ const FollowingUserId = () => {
           )}
         </div>
       </div>
+
+    </Layout>
     </>
   );
 };

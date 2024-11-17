@@ -41,7 +41,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center px-4 flex flex-row justify-around mt-8 md:mt-0 items-center md:flex-col md:gap-5 gap-1"
+          className="text-center px-4 flex flex-col justify-around mt-8 md:mt-0 items-center md:flex-col md:gap-5 gap-1"
         >
           <img
             src="./img/ubaypix-logo.png"
@@ -51,23 +51,6 @@ const Home = () => {
           <h1 className="font-medium text-[24px] md:text-[43px]">
             Let's connect with each other
           </h1>
-
-          <Link to={"/login"}>
-            <motion.button
-              className="bg-green-500 w-full py-5 px-10 font-medium text-[14px] md:block hidden text-white rounded-md mb-10"
-              variants={blink}
-              initial="visible"
-              animate="hidden"
-              transition={{
-                repeat: Infinity,
-                repeatType: "reverse",
-                duration: 0.8,
-              }}
-            >
-              Get Started
-            </motion.button>
-          </Link>
-
           <Link to={"/login"}>
             <motion.div
               className="bg-green-500 flex px-2 items-center rounded-md"
@@ -86,6 +69,24 @@ const Home = () => {
               <TbPlayerTrackNextFilled className="md:hidden text-white text-[30px]" />
             </motion.div>
           </Link>
+
+          <Link to={"/login"}>
+            <motion.button
+              className="bg-green-500 w-full py-5 px-10 font-medium text-[14px] md:block hidden text-white rounded-md mb-10"
+              variants={blink}
+              initial="visible"
+              animate="hidden"
+              transition={{
+                repeat: Infinity,
+                repeatType: "reverse",
+                duration: 0.8,
+              }}
+            >
+              Get Started
+            </motion.button>
+          </Link>
+
+         
         </motion.div>
       </div>
     </>
