@@ -48,7 +48,7 @@ const FollowingPostSide = () => {
                     alt=""
                   />
                   <div>
-                  <p className="text-[12px]">{item?.user?.username || <p>Unknown</p>}</p>
+                  <p className="text-[12px] font-semibold">{item?.user?.username || <p>Unknown</p>}</p>
                   <p className="text-[9px]">{item?.user?.email || <p>Unknown</p>}</p>
                     
                   </div>

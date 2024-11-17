@@ -116,7 +116,7 @@ const Logout = () => {
         <div className="flex flex-col gap-3">
           <div>
            <img
-            src="./img/ubaypix-logo.png"
+            src="/img/ubaypix-logo.png"
             alt="UbayPix Logo"
             className="mb-4 w-[250px] md:w-[150px]" // Sesuaikan ukuran gambar
           />

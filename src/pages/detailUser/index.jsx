@@ -136,7 +136,7 @@ const DetailUser = () => {
   return (
     <>
     <Layout>
-      <div className="flex flex-col md:ml-40">
+      <div className="flex flex-col md:w-[800px] md:ml-40">
         <div className="p-3">
           <NavbarFollowingFollowers/>
           <div>
