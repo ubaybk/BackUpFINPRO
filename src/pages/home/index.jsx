@@ -22,14 +22,13 @@ const Home = () => {
   return (
     <>
       <div className="md:flex-row flex flex-col items-center  md:justify-center min-h-screen">
-        
-      <img
-            src="./img/ubaypix-logo.png"
-            alt="UbayPix Logo"
-            className="mb-4 w-[250px] md:w-[300px]  md:hidden" // Sesuaikan ukuran gambar
-          />
-          
-          <motion.div
+        <img
+          src="./img/ubaypix-logo.png"
+          alt="UbayPix Logo"
+          className="mb-4 w-[250px] md:w-[300px] p-2  md:hidden" // Sesuaikan ukuran gambar
+        />
+
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -71,7 +70,7 @@ const Home = () => {
 
           <Link to={"/login"}>
             <motion.div
-              className="bg-green-500 flex p-1 items-center rounded-md"
+              className="bg-green-500 flex px-2 items-center rounded-md"
               variants={blink}
               initial="visible"
               animate="hidden"
