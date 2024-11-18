@@ -100,7 +100,7 @@ const MyFollowingStory = () => {
         {/* Kontainer Carousel */}
         <div
           ref={carouselRef}
-          className="flex gap-4 overflow-hidden whitespace-nowrap scroll-smooth"
+          className="flex overflow-hidden whitespace-nowrap scroll-smooth"
         >
           <StoryCircle
             imageUrl={dataUserLogin.profilePictureUrl}
@@ -115,6 +115,7 @@ const MyFollowingStory = () => {
                 userId: userStories.userId,
                 stories: userStories.stories,
               }}
+              className="p-1"
             >
               <StoryCircle
                 imageUrl={userStories.profilePictureUrl}
