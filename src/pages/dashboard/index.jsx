@@ -9,13 +9,14 @@ import Layout from "../../components/layout";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const Dashboard = () => {
-  const userId = localStorage.getItem("userId");
+  // const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const apiKey = import.meta.env.VITE_API_KEY;
   const defaultPhoto = usePhotoDefault();
 
   const { dataUserLogin } = useContext(getLoginUserContext);
-  console.log("ini buat dashboar data login", dataUserLogin);
+  const userId = dataUserLogin.id
+  console.log("ini buat dashboar data login", dataUserLogin.id);
 
   const [post, setPost] = useState([]);
   const [totalPost, setTotalPost] = useState([]);
@@ -61,15 +62,19 @@ const Dashboard = () => {
       )
       .then((res) => {
         setDataUser(res.data.data);
-      });
+      })
+      .catch((err) => console.error(err));
   };
   console.log("ini post", post);
   console.log("ini total", totalPost);
   console.log("ini user", dataUser);
 
   useEffect(() => {
-    getPost();
-    getUserById();
+    if (userId) {
+      getPost();
+      getUserById();
+
+    }
   }, [userId]);
 
   return (

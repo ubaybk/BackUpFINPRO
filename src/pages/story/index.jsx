@@ -27,7 +27,7 @@ const Story = () => {
   const progressRef = useRef(null);
   const startTimeRef = useRef(null);
 
-  const STORY_DURATION = 5000; // 5 seconds per story
+  const STORY_DURATION = 15000; // 5 seconds per story
 
   // Fetch single story by ID
   const getStoryById = async (id) => {

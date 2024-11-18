@@ -4,6 +4,7 @@ import useTime from "../hooks/useTime";
 import { FaAngleDoubleUp } from "react-icons/fa";
 import usePhotoDefault from "../hooks/usePhotoDefault";
 import { Link } from "react-router-dom";
+import { TiDelete } from "react-icons/ti";
 
 const Comment = ({ postId, onCommentData }) => {
   const timeAgo = useTime();
@@ -11,6 +12,7 @@ const Comment = ({ postId, onCommentData }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const token = localStorage.getItem("token");
   const defaultPhoto = usePhotoDefault();
+  const userId = localStorage.getItem("userId");
 
   const photoProfile = localStorage.getItem("photo");
   const username = localStorage.getItem("username");
@@ -35,7 +37,24 @@ const Comment = ({ postId, onCommentData }) => {
       })
       .catch((err) => console.log(err));
   };
-  console.log("ini komen", comments);
+
+  const handleDeleteComment = (commentId) => {
+    axios
+      .delete(
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/delete-comment/${commentId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            apiKey: apiKey,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        getPostById();
+      })
+      .catch((err) => console.log(err));
+  };
 
   const [postComment, setPostComment] = useState({
     postId: postId,
@@ -63,7 +82,6 @@ const Comment = ({ postId, onCommentData }) => {
         }
       )
       .then((res) => {
-        console.log(res);
         setPostComment({
           ...postComment,
           comment: "",
@@ -77,47 +95,67 @@ const Comment = ({ postId, onCommentData }) => {
       getPostById();
     }
   }, [postId]);
-  console.log('DATA POSTKOMEN',comments)
 
   return (
     <div className="p-3 flex flex-col gap-3">
       <hr />
       <div>
         {comments.length > 0 ? (
-          comments.map((item, index) => (
-            <div key={index}>
+          comments.map((item) => (
+            <div key={item.id} className="mb-4 relative">
               <Link to={`/detailuser/${item.user.id}`}>
-              <div className="flex items-center gap-1">
-                <img
-                  src={item.user.profilePictureUrl || defaultPhoto} onError={(e) => {e.target.src=defaultPhoto}}
-                  alt="profile"
-                  className="w-10 h-10 rounded-full"
-                />
-                <p>{item.user.username}</p>
-              </div>
+                <div className=" flex items-center gap-2 mb-2">
+                  <img
+                    src={item.user.profilePictureUrl || defaultPhoto}
+                    onError={(e) => {
+                      e.target.src = defaultPhoto;
+                    }}
+                    alt="profile"
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <p className="font-semibold">{item.user.username}</p>
+                </div>
               </Link>
-              <p>{item.comment}</p>
-              <p className="text-[10px] text-gray-500">
-                {timeAgo(item.user.createdAt)}
-              </p>
+                <p>{item.comment}</p>
+              <div className="  flex items-center justify-between">
+                {item.user.id === userId && (
+                  <button
+                    onClick={() => handleDeleteComment(item.id)}
+                    className="absolute top-5 right-0 text-[25px] text-red-500"
+                  >
+                    <TiDelete />
+                  </button>
+                )}
+              </div>
+              <p className="text-[10px] text-gray-500">{timeAgo(item.createdAt)}</p>
             </div>
           ))
         ) : (
           <p>No comments available.</p>
         )}
       </div>
-      <div className="flex items-center">
-        <img src={photoProfile || defaultPhoto}  onError={(e) => {e.target.src=defaultPhoto}} className="w-10 h-10 rounded-full" alt="" />
+      <div className="flex items-center mt-4">
+        <img
+          src={photoProfile || defaultPhoto}
+          onError={(e) => {
+            e.target.src = defaultPhoto;
+          }}
+          className="w-10 h-10 rounded-full"
+          alt="profile"
+        />
         <input
           type="text"
           value={postComment.comment}
           onChange={handleChangeComment}
           name="comment"
-          placeholder="add comment"
-          className="pl-3 mt-1 block w-full rounded-xl p-2  focus:ring-indigo-500 focus:border-indigo-500 "
+          placeholder="Add a comment"
+          className="pl-3 mt-1 block w-full rounded-xl p-2 focus:ring-indigo-500 focus:border-indigo-500 ml-2"
         />
-        <div className="bg-green-500 p-2 rounded-md">
-          <FaAngleDoubleUp onClick={handlePostComment} />
+        <div
+          onClick={handlePostComment}
+          className="bg-green-500 p-2 rounded-md ml-2 cursor-pointer"
+        >
+          <FaAngleDoubleUp className="text-white" />
         </div>
       </div>
     </div>

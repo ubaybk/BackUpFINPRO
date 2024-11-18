@@ -23,6 +23,7 @@ import DetailPost from "../pages/detailPost";
 import UpdateUser from "../pages/updateUser";
 import TestSeacrh from "../pages/testSearch";
 import EditPost from "../pages/editPost";
+import PublicRoute from "./publicRoute";
 
 
 export const routes = [
@@ -32,7 +33,12 @@ export const routes = [
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+     
+        <Login />
+     
+    )
+    
   },
   {
     path: "/dashboard",

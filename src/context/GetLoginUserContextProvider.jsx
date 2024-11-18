@@ -27,12 +27,16 @@ export const GetLoginUserContextProvider = ({children}) => {
             })
     }
 
+    const resetUserLogin = () => {
+        setDataUserLogin({});
+      };
+
     useEffect(()=> {
         handleGetLoginUser()
-    },[])
+    },[token])
 
     return(
-        <getLoginUserContext.Provider value={{dataUserLogin}}>
+        <getLoginUserContext.Provider value={{dataUserLogin, resetUserLogin}}>
             {children}
         </getLoginUserContext.Provider>
     )

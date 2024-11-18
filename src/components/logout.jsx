@@ -19,7 +19,7 @@ const Logout = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [darkMode, toggleDarkMode] = useDarkMode();
-  const { dataUserLogin } = useContext(getLoginUserContext);
+  const { dataUserLogin, resetUserLogin } = useContext(getLoginUserContext);
 
   console.log("ini dari logout USER", dataUserLogin);
 
@@ -43,6 +43,8 @@ const Logout = () => {
         localStorage.removeItem("website");
         localStorage.removeItem("userIdFollow");
         localStorage.removeItem("usernameById");
+
+        resetUserLogin();
   
         // Tampilkan toast sukses
         toast.success("Logout berhasil!", {

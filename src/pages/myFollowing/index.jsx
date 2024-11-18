@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import NavbarFollow from "../../components/navbarFolow";
 import { followingContext } from "../../context/FollowingContextProvider";
 import { Link } from "react-router-dom";
+import Layout from "../../components/layout";
+
 
 const MyFollowing = () => {
   const { dataMyfollowing } = useContext(followingContext);
@@ -11,7 +13,9 @@ const MyFollowing = () => {
 
   return (
     <>
-      <div className="px-2">
+    <Layout>
+
+      <div className="px-2 md:w-[700px]">
         <NavbarFollow />
         <div className="mb-32 mt-5 flex flex-col gap-4">
           {dataMyfollowing?.data?.users?.map((item, index) => (
@@ -33,6 +37,7 @@ const MyFollowing = () => {
           ))}
         </div>
       </div>
+    </Layout>
     </>
   );
 };
