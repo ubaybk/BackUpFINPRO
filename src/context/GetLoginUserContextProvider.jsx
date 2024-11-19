@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const getLoginUserContext = createContext()
 
 export const GetLoginUserContextProvider = ({children}) => {
+    
     const apiKey = import.meta.env.VITE_API_KEY;
     const token = localStorage.getItem("token");
     const [dataUserLogin, setDataUserLogin] = useState([])
@@ -33,7 +34,7 @@ export const GetLoginUserContextProvider = ({children}) => {
 
     useEffect(()=> {
         handleGetLoginUser()
-    },[token])
+    },[])
 
     return(
         <getLoginUserContext.Provider value={{dataUserLogin, resetUserLogin}}>

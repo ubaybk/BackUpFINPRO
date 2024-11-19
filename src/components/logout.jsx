@@ -34,15 +34,7 @@ const Logout = () => {
       })
       .then((res) => {
         // Hapus data di localStorage
-        localStorage.removeItem("bio");
-        localStorage.removeItem("name");
-        localStorage.removeItem("photo");
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("username");
-        localStorage.removeItem("website");
-        localStorage.removeItem("userIdFollow");
-        localStorage.removeItem("usernameById");
+        localStorage.clear();
 
         resetUserLogin();
   
@@ -59,7 +51,7 @@ const Logout = () => {
   
         // Navigasi ke halaman utama setelah beberapa detik
         setTimeout(() => {
-          navigate("/");
+          navigate("/", { replace: true });
         }, 3000);
       })
       .catch((error) => {

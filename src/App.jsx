@@ -15,6 +15,7 @@ function App() {
     "/dashboard",
     "/followingpost",
     "/detailuser/:userId",
+    "/updateuser",
     "/explorepost",
     "/myfollowing",
     "/myfollowers",
