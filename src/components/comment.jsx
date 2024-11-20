@@ -96,6 +96,8 @@ const Comment = ({ postId, onCommentData }) => {
     }
   }, [postId]);
 
+  console.log('ini komen NEW', comments)
+
   return (
     <div className="p-3 flex flex-col gap-3">
       <hr />
@@ -127,7 +129,7 @@ const Comment = ({ postId, onCommentData }) => {
                   </button>
                 )}
               </div>
-              <p className="text-[10px] text-gray-500">{timeAgo(item.createdAt)}</p>
+              <p className="text-[10px] text-gray-500">{timeAgo(item.user.createdAt)}</p>
             </div>
           ))
         ) : (

@@ -155,7 +155,7 @@ const DetailPost = () => {
   return (
     <>
       <Layout>
-        <div className="p-3 md:w-[800px] flex flex-col gap-3">
+        <div className="p-3 md:w-[600px] flex flex-col gap-3">
           <div className="flex items-center gap-3">
             <button onClick={handleBack}>
               <ButtonBack />

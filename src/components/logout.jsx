@@ -116,33 +116,33 @@ const Logout = () => {
           />
           </div>
           <Link to={"/followingpost"}>
-            <div className="text-black text-[40px] flex items-center gap-3">
+            <div className="text-black dark:text-white text-[40px] flex items-center gap-3">
               <FaHome />
               <h1 className="text-[16px]">Beranda</h1>
             </div>
           </Link>
 
           <Link to={"/explorepost"}>
-            <div className="text-black flex items-center text-[50px]  gap-3">
+            <div className="text-black dark:text-white flex items-center text-[50px]  gap-3">
               <MdExplore className="ml-[-5px]" />
               <h1 className="text-[16px]">Explore</h1>
             </div>
           </Link>
 
           <Link to={"/updateuser"}>
-            <div className="flex items-center text-black gap-3 ">
+            <div className="flex items-center text-black dark:text-white gap-3 ">
               <MdTipsAndUpdates className="text-[50px]" />
               <p>Update Profile</p>
             </div>
           </Link>
           <Link to={"/postcreate"}>
-            <div className="flex items-center ml-[-5px] text-black gap-3 ">
+            <div className="flex items-center ml-[-5px] text-black dark:text-white gap-3 ">
               <IoAddCircleOutline className="text-[50px]" />
               <p>Add Post</p>
             </div>
           </Link>
           <Link to={"/dashboard"}>
-            <div className=" rounded-md flex items-center text-black ">
+            <div className=" rounded-md flex items-center text-black dark:text-white ">
               <div className="flex items-center gap-2 ">
                 <img
                   className="w-10 h-10 rounded-full"

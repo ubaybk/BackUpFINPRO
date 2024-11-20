@@ -116,7 +116,7 @@ const FollowingPost = () => {
 
   return (
     <Layout>
-      <div className="pb-20 p-1">
+      <div className="pb-20 md:w-[550px] p-1">
         <NavbarFollowingFollowers />
         <MyFollowingStory />
         {posts?.length > 0 ? (

@@ -81,7 +81,7 @@ const MyFollowingStory = () => {
   );
 
   return (
-    <div className="bg-white rounded-lg">
+    <div className="bg-white dark:bg-black rounded-lg">
       <div className="p-1 relative">
         {/* Tombol Navigasi */}
         <button
