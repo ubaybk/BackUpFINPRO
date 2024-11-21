@@ -31,7 +31,7 @@ const DetailPost = () => {
   const getPostUserId = () => {
     axios
       .get(
-        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/users-post/${userId}?size=10&page=1`,
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/users-post/${userId}?size=100&page=1`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -155,7 +155,7 @@ const DetailPost = () => {
   return (
     <>
       <Layout>
-        <div className="p-3 md:w-[600px] flex flex-col gap-3">
+        <div className="p-3 md:w-[600px] flex flex-col gap-3 pb-20">
           <div className="flex items-center gap-3">
             <button onClick={handleBack}>
               <ButtonBack />

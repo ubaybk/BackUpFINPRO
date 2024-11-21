@@ -25,14 +25,37 @@ const Dashboard = () => {
 
   const [logOut, setLogOut] = useState(false);
 
+  const [idDataUser, setIdDataUser] = useState('')
+
   const handleLogout = () => {
     setLogOut(!logOut);
   };
 
-  const getPost = () => {
+  const getUser = () => {
     axios
       .get(
-        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/users-post/${userId}?size=100&page=1`,
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/user`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            apiKey: apiKey,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log('ini GETUSER ERIK',res.data.data)
+        setIdDataUser(res.data.data)
+
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getPost = () => {
+    console.log('ini post erikson', post)
+    axios
+      .get(
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/users-post/${idDataUser.id}?size=100&page=1`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -48,10 +71,12 @@ const Dashboard = () => {
       .catch((err) => console.log(err));
   };
 
+  
+
   const getUserById = () => {
     axios
       .get(
-        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/user/${userId}`,
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/user/${idDataUser.id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -69,13 +94,17 @@ const Dashboard = () => {
   console.log("ini total", totalPost);
   console.log("ini user", dataUser);
 
+  
+
   useEffect(() => {
-    if (userId) {
+    if (idDataUser.id) {
       getPost();
       getUserById();
+      
 
     }
-  }, [userId]);
+    getUser()
+  }, [idDataUser.id]);
 
   return (
     <>
@@ -98,9 +127,9 @@ const Dashboard = () => {
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between text-center">
                   <div>
-                    {dataUserLogin && dataUserLogin.profilePictureUrl && (
+                    {idDataUser && idDataUser.profilePictureUrl && (
                       <img
-                        src={dataUserLogin.profilePictureUrl}
+                        src={idDataUser.profilePictureUrl}
                         className="w-[70px] h-[70px] object-cover rounded-full"
                         alt=""
                       />
@@ -113,31 +142,31 @@ const Dashboard = () => {
                     </div>
                     <Link to={"/myfollowers"}>
                       <div>
-                        <h1>{dataUser.totalFollowers}</h1>
+                        <h1>{idDataUser.totalFollowers}</h1>
                         <p>pengikut</p>
                       </div>
                     </Link>
                     <Link to={"/myfollowing"}>
                       <div>
-                        <h1>{dataUser.totalFollowing}</h1>
+                        <h1>{idDataUser.totalFollowing}</h1>
                         <p>mengikuti</p>
                       </div>
                     </Link>
                   </div>
                 </div>
                 <div className="">
-                  <h1>{dataUserLogin.name}</h1>
-                  <p className="text-gray-400">@{dataUserLogin.username}</p>
-                  <p>{dataUserLogin.bio}</p>
+                  <h1>{idDataUser.name}</h1>
+                  <p className="text-gray-400">@{idDataUser.username}</p>
+                  <p>{idDataUser.bio}</p>
 
                   <p>
                     <a
-                      href={dataUserLogin.website}
+                      href={idDataUser.website}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"
                     >
-                      {dataUserLogin.website}
+                      {idDataUser.website}
                     </a>
                   </p>
                 </div>
@@ -148,7 +177,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-3 gap-1 mb-36">
               {post.map((item, index) => (
                 <div key={index} className="flex flex-col items-center">
-                  <Link to={`/detailpost/${userId}`}>
+                  <Link to={`/detailpost/${idDataUser.id}`}>
                     <img
                       src={item.imageUrl || defaultPhoto}
                       onError={(e) => {

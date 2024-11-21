@@ -10,6 +10,8 @@ const UpdateUser = () => {
   const { dataUserLogin } = useContext(getLoginUserContext);
   const { handleUploadImage, linkImage } = useContext(uploadImageContext);
 
+  
+
   const [dataUpdateProfile, dataSetUpdateProfile] = useState({
     name: dataUserLogin.name || "",
     username: dataUserLogin.username || "",
@@ -57,12 +59,12 @@ const UpdateUser = () => {
     formData.append("name", dataUpdateProfile.name);
     formData.append("username", dataUpdateProfile.username);
     formData.append("email", dataUpdateProfile.email);
-    formData.append("phoneNumber", dataUpdateProfile.phoneNumber);
-    formData.append("bio", dataUpdateProfile.bio);
-    formData.append("website", dataUpdateProfile.website);
     if (dataUpdateProfile.profilePictureUrl) {
       formData.append("profilePictureUrl", dataUpdateProfile.profilePictureUrl);
     }
+    formData.append("phoneNumber", dataUpdateProfile.phoneNumber);
+    formData.append("bio", dataUpdateProfile.bio);
+    formData.append("website", dataUpdateProfile.website);
 
     axios
       .post(

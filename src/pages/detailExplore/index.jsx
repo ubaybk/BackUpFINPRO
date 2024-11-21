@@ -91,7 +91,7 @@ const DetailExplore = () => {
 
   return (
     <Layout>
-      <div className="p-3">
+      <div className="p-3 mb-24 md:mb-0">
         <Link to={"/explorepost"}>
           <div className="flex items-center gap-5 mb-3">
             <ButtonBack />
@@ -168,6 +168,7 @@ const DetailExplore = () => {
               <Comment
                 postId={post.id}
                 onCommentData={handleCommentData}
+                
               />
             )}
           </div>

@@ -14,7 +14,7 @@ export const FollowingByUserIdContextProvider = ({children}) => {
 
     const getFollowingByUserIdContextProvider = () => {
         axios
-            .get(`https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/following/${userIdFollow}/?size=10&page=1`,
+            .get(`https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/following/${userIdFollow}/?size=300&page=1`,
                 {
                     headers: {
                         "Content-Type": "application/json",

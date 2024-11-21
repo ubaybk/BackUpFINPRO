@@ -20,6 +20,7 @@ const Logout = () => {
   const navigate = useNavigate();
   const [darkMode, toggleDarkMode] = useDarkMode();
   const { dataUserLogin, resetUserLogin } = useContext(getLoginUserContext);
+  const photo = localStorage.getItem('photo')
 
   console.log("ini dari logout USER", dataUserLogin);
 
@@ -71,7 +72,7 @@ const Logout = () => {
   return (
     <>
     <ToastContainer/>
-      <div className="bg-green-200 p-5 fixed bottom-0 z-50 left-0 right-0 animate-slide-up md:hidden">
+      <div className="bg-green-200 dark:bg-black p-5 fixed bottom-0 z-50 left-0 right-0 animate-slide-up md:hidden">
         <div>
           <div className="bg-green-500 p-2 rounded-md flex items-center text-white justify-between ">
             <div className="flex items-center gap-3">
@@ -146,7 +147,7 @@ const Logout = () => {
               <div className="flex items-center gap-2 ">
                 <img
                   className="w-10 h-10 rounded-full"
-                  src={dataUserLogin.profilePictureUrl}
+                  src={photo}
                   alt={dataUserLogin.username}
                 />
                 <h1>Profile</h1>

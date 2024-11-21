@@ -45,7 +45,7 @@ const DetailUser = () => {
   const getPostUser = () => {
     axios
       .get(
-        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/users-post/${userId}?size=10&page=1`,
+        `https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/users-post/${userId}?size=100&page=1`,
         {
           headers: {
             "Content-Type": "application/json",

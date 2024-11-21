@@ -7,7 +7,7 @@ export const GetLoginUserContextProvider = ({children}) => {
     
     const apiKey = import.meta.env.VITE_API_KEY;
     const token = localStorage.getItem("token");
-    const [dataUserLogin, setDataUserLogin] = useState([])
+    const [dataUserLogin, setDataUserLogin] = useState({})
 
     const handleGetLoginUser = () => {
         axios
@@ -34,7 +34,7 @@ export const GetLoginUserContextProvider = ({children}) => {
 
     useEffect(()=> {
         handleGetLoginUser()
-    },[])
+    },[token])
 
     return(
         <getLoginUserContext.Provider value={{dataUserLogin, resetUserLogin}}>

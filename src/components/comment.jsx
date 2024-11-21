@@ -151,7 +151,7 @@ const Comment = ({ postId, onCommentData }) => {
           onChange={handleChangeComment}
           name="comment"
           placeholder="Add a comment"
-          className="pl-3 mt-1 block w-full rounded-xl p-2 focus:ring-indigo-500 focus:border-indigo-500 ml-2"
+          className="pl-3 mt-1 block w-full rounded-xl p-2 focus:ring-indigo-500 dark:text-black focus:border-indigo-500 ml-2"
         />
         <div
           onClick={handlePostComment}
