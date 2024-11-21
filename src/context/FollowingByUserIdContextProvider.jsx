@@ -40,7 +40,7 @@ export const FollowingByUserIdContextProvider = ({children}) => {
     
 
     return(
-        <followingByUserIdContext.Provider value={{dataFollowingByUserId}}>
+        <followingByUserIdContext.Provider value={{dataFollowingByUserId, getFollowingByUserIdContextProvider}}>
             {children}
         </followingByUserIdContext.Provider>
     )

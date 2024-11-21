@@ -7,9 +7,13 @@ import Layout from "../../components/layout";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const FollowingUserId = () => {
-  const datafollowingByUserIdContext = useContext(followingByUserIdContext);
+  const {dataFollowingByUserId, getFollowingByUserIdContextProvider} = useContext(followingByUserIdContext);
   const defaultPhoto = usePhotoDefault();
-  console.log("following by user id", datafollowingByUserIdContext);
+  console.log("following by user id", dataFollowingByUserId);
+
+  useEffect(()=> {
+    getFollowingByUserIdContextProvider();
+  },[])
 
   return (
     <>
@@ -18,7 +22,7 @@ const FollowingUserId = () => {
         <NavbarFollowById />
 
         <div className="mb-32 mt-5 flex flex-col gap-4">
-          {datafollowingByUserIdContext?.dataFollowingByUserId?.data?.users?.map(
+          {dataFollowingByUserId?.data?.users?.map(
             (item, index) => (
               <div key={index}>
                 <Link to={`/detailuser/${item.id}`}>

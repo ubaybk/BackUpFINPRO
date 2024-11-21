@@ -6,7 +6,7 @@ export const followersByUserIdContext = createContext()
 
 export const FollowersByUserIdContextProvider = ({children}) => {
     const userIdFollow = localStorage.getItem("userIdFollow")
-    const [dataFollowersByUserId, setDataFollowersByUserId] = useState([])
+    const [dataFollowersByUserId, setDataFollowersByUserId] = useState({})
 
     const apiKey = import.meta.env.VITE_API_KEY
     const token = localStorage.getItem("token")
@@ -36,7 +36,7 @@ export const FollowersByUserIdContextProvider = ({children}) => {
     },[userIdFollow])
     
     return (
-        <followersByUserIdContext.Provider value={{dataFollowersByUserId}}>
+        <followersByUserIdContext.Provider value={{dataFollowersByUserId, getFollowersByUserIdContextProvider}}>
             {children}
         </followersByUserIdContext.Provider>
     )

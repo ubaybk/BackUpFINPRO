@@ -154,7 +154,7 @@ const DetailExplore = () => {
 
             {/* Caption */}
             <div className="flex flex-col mb-3">
-              <h1 className="font-semibold">{post.user.username}</h1>
+              <h1 className="font-semibold">{post?.user?.username || "unknown"}</h1>
               <h1>{post.caption}</h1>
             </div>
 

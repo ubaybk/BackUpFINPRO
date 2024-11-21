@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/layout";
 
 const FollowersUserId = () => {
-  const dataFollowersByUserId = useContext(followersByUserIdContext);
+  const {dataFollowersByUserId , getFollowersByUserIdContextProvider} = useContext(followersByUserIdContext);
 
+  useEffect(()=> {
+    getFollowersByUserIdContextProvider();
+  },[])
   console.log("followers by user id", dataFollowersByUserId);
   return (
     <>
@@ -15,7 +18,7 @@ const FollowersUserId = () => {
       <div className="px-2">
         <NavbarFollowById />
         <div className="mb-32 mt-5 flex flex-col gap-4">
-          {dataFollowersByUserId?.dataFollowersByUserId?.data?.users?.map(
+          {dataFollowersByUserId?.data?.users.map(
             (item, index) => (
               <div key={index}>
                 <Link to={`/detailuser/${item.id}`}>
