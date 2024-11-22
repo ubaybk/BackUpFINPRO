@@ -111,7 +111,7 @@ const Dashboard = () => {
       <Layout>
         <div className="flex flex-col md:ml-40  min-h-screen">
           <div className="p-3">
-            <div className="gap-2 mb-3 flex items-center md:hidden">
+            <div className="gap-2 mb-1 flex items-center md:hidden">
               <img
                 src="./img/ubaypix-logo.png"
                 alt="UbayPix Logo"

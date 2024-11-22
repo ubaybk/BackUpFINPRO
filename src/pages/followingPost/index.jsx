@@ -116,9 +116,15 @@ const FollowingPost = () => {
 
   return (
     <Layout>
-      <div className="pb-20 md:w-[500px] p-1">
-        <NavbarFollowingFollowers />
+      <div className="pb-20 md:w-[500px]">
+        {/* <NavbarFollowingFollowers /> */}
+        <div className="p-3">
+        <Link to={'/dashboard'}>
+          <img src="./img/ubaypix-logo.png" className="w-[150px] md:w-[300px] md:hidden" alt="" />
+        </Link>
         <MyFollowingStory />
+
+        </div>
         {posts?.length > 0 ? (
           posts.map((item) => (
             <div key={item.id}>
