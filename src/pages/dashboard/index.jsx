@@ -119,7 +119,7 @@ const Dashboard = () => {
               />
               <FaAngleDown
                 onClick={handleLogout}
-                className="text-green-500 md:hidden"
+                className="text-green-500 md:hidden cursor-pointer"
               />
               {logOut && <Logout />}
             </div>

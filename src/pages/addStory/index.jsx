@@ -3,9 +3,13 @@ import { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { GrGallery } from "react-icons/gr";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Layout from "../../components/layout";
+
 
 const AddStory = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [sendImage, setSendImage] = useState([]);
   const [preview, setPreview] = useState(null);
@@ -34,7 +38,7 @@ const AddStory = () => {
 
   const handleCombinedUpload = async () => {
     if (!file) {
-      console.error("No file selected");
+      toast.error("Please select a file to upload.");
       return;
     }
 
@@ -58,7 +62,7 @@ const AddStory = () => {
       setSendImage(imageUrl);
 
       // Step 2: Create the post using the image URL
-      const postResponse = await axios.post(
+      await axios.post(
         "https://photo-sharing-api-bootcamp.do.dibimbing.id/api/v1/create-story",
         { ...formPostCreate, imageUrl: imageUrl },
         {
@@ -68,11 +72,15 @@ const AddStory = () => {
             apiKey: apiKey,
           },
         }
-      )
-      navigate("/followingpost");
+      );
 
-      console.log("Post Story created successfully:", postResponse.data);
+      // Use setTimeout to ensure toast appears for 5 seconds
+      toast.success("Story created successfully!");
+      setTimeout(() => {
+        navigate("/followingpost");
+      }, 5000); // Navigate after 5 seconds
     } catch (error) {
+      toast.error("Failed to create story. Please try again.");
       console.error("Error during upload or post Story creation:", error);
     }
   };
@@ -86,12 +94,14 @@ const AddStory = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3 p-3 h-screen mb-56">
+    <Layout>
+      
+      <div className="flex flex-col gap-3 p-3 h-screen mb-56 md:w-[800px] md:px-36">
         <div className="flex items-center gap-5 mb-5">
           <Link to={"/"}>
             <IoMdClose />
           </Link>
-          <h1>Postingan Baru</h1>
+          <h1>Add Story</h1>
         </div>
         {preview && (
           <div className="flex flex-col items-center">
@@ -120,10 +130,14 @@ const AddStory = () => {
           className="border-green-500 border-2 text-green-600 text-center py-2"
         />
 
-        <button onClick={handleCombinedUpload}>
+        <button onClick={handleCombinedUpload} className="bg-blue-500 text-white px-4 py-2 rounded">
           Upload & Send
         </button>
       </div>
+    </Layout>
+
+      {/* Toast Container */}
+      <ToastContainer />
     </>
   );
 };

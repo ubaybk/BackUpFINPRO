@@ -7,12 +7,12 @@ import Layout from "../../components/layout";
 const MyFollowers = () => {
   const dataMyFollowers = useContext(followersContext);
 
-  console.log("ini followers context", dataMyFollowers.dataMyfollowers);
+  // console.log("ini followers context", dataMyFollowers.dataMyfollowers);
 
   return (
     <>
     <Layout>
-      <div className="px-2 md:w-[700px]">
+      <div className="px-2 md:w-[700px] md:ml-40">
         <NavbarFollow />
 
         <div className="mb-32 mt-5 flex flex-col gap-4">
@@ -20,7 +20,9 @@ const MyFollowers = () => {
             <div key={index}>
               <div className="flex items-center gap-3">
                 <img
-                  src={item.profilePictureUrl}
+                  src={item.profilePictureUrl || defaultPhoto}  onError={(e) => {
+                    e.target.src = defaultPhoto;
+                  }}
                   alt={item.username}
                   className="w-10 h-10 rounded-full"
                 />

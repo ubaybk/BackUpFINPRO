@@ -6,15 +6,20 @@ import { followersByUserIdContext } from "../context/FollowersByUserIdContextPro
 import Layout from "./layout";
 
 const NavbarFollowById = () => {
-  const followingByUserId = useContext(followingByUserIdContext);
-  const followersByUserId = useContext(followersByUserIdContext);
+  const {dataFollowingByUserId, getFollowingByUserIdContextProvider} = useContext(followingByUserIdContext);
+  const {dataFollowersByUserId, getFollowersByUserIdContextProvider} = useContext(followersByUserIdContext);
   const userIdFollow = localStorage.getItem("userIdFollow");
   const usernameById = localStorage.getItem("usernameById");
 
-  console.log("following User By Id", followingByUserId);
-  console.log("followers User By Id", followersByUserId);
+  useEffect(()=> {
+    getFollowingByUserIdContextProvider()
+    getFollowersByUserIdContextProvider()
+  },[userIdFollow])
 
-  useEffect(() => {}, []);
+  console.log("following User By Id", dataFollowingByUserId);
+  console.log("followers User By Id", dataFollowersByUserId);
+
+  
   return (
     <>
     <Layout>
@@ -29,7 +34,7 @@ const NavbarFollowById = () => {
           <div className="border-2 bg-green-500 w-full">
           <Link to={`/followersuserid/${userIdFollow}`}>
             <h1 className="text-[20px]">
-              {followersByUserId?.dataFollowersByUserId?.data?.totalItems}{" "}
+              {dataFollowersByUserId?.data?.totalItems}{" "}
               Pengikut
             </h1>
           </Link>
@@ -37,7 +42,7 @@ const NavbarFollowById = () => {
           <div className="border-2  bg-green-500 w-full">
           <Link to={`/followinguserid/${userIdFollow}`} >
             <h1 className="text-[20px]">
-              {followingByUserId?.dataFollowingByUserId?.data?.totalItems}{" "}
+              {dataFollowingByUserId?.data?.totalItems}{" "}
               Mengikuti
             </h1>
           </Link>

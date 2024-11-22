@@ -30,7 +30,7 @@ export const FollowersContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <followersContext.Provider value={{ dataMyfollowers }}>
+        <followersContext.Provider value={{ dataMyfollowers, getMyfollowers }}>
             {children}
         </followersContext.Provider>
     );

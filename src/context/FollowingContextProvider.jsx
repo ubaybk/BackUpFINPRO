@@ -38,7 +38,7 @@ export const FollowingContextProvider = ({children}) => {
     },[])
 
     return(
-        <followingContext.Provider value={{dataMyfollowing}}>
+        <followingContext.Provider value={{dataMyfollowing, getMyfollowing}}>
             {children}
         </followingContext.Provider>
     )

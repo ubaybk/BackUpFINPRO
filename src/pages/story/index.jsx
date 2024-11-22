@@ -297,10 +297,10 @@ const Story = () => {
           {showAllViewers && (
             <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 z-50 max-h-[70vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold">Story Views</h3>
+                <h3 className="font-semibold dark:text-black">Story Views</h3>
                 <button
                   onClick={() => setShowAllViewers(false)}
-                  className="p-1"
+                  className="p-1 dark:text-black"
                 >
                   <X size={20} />
                 </button>
@@ -314,7 +314,7 @@ const Story = () => {
                       alt={viewer?.user?.username}
                     />
                     <div>
-                      <p className="font-semibold">{viewer?.user?.username}</p>
+                      <p className="font-semibold dark:text-black">{viewer?.user?.username}</p>
                       <p className="text-gray-500 text-sm">{viewer?.user?.name}</p>
                     </div>
                   </div>

@@ -109,6 +109,7 @@ const Logout = () => {
       {/* footer web */}
       <div className="fixed left-0 top-0 border-r-2 border-slate-200  w-[20%] min-h-screen  p-2 hidden md:flex flex-col ite justify-between ">
         <div className="flex flex-col gap-3">
+          <Link to={'/dashboard'}>
           <div>
            <img
             src="/img/ubaypix-logo.png"
@@ -116,6 +117,7 @@ const Logout = () => {
             className="mb-4 w-[250px] md:w-[150px]" // Sesuaikan ukuran gambar
           />
           </div>
+          </Link>
           <Link to={"/followingpost"}>
             <div className="text-black dark:text-white text-[40px] flex items-center gap-3">
               <FaHome />
@@ -164,7 +166,7 @@ const Logout = () => {
               toggleDarkMode={toggleDarkMode}
             />
           </div>
-          <h1 onClick={handleLogout} className="text-red-600">
+          <h1 onClick={handleLogout} className="text-red-600 cursor-pointer">
             LOG OUT
           </h1>
         </div>

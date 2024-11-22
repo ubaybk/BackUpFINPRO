@@ -100,7 +100,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Enter your email"
-                  className="mt-1 block w-full rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-[14px]"
+                  className="mt-1 block w-full rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-[14px] dark:text-black dark:p-1"
                 />
                 <ErrorMessage
                   name="email"
@@ -117,7 +117,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="Enter your password"
-                  className="mt-1 block w-full rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-[14px]"
+                  className="mt-1 block w-full rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-[14px] dark:text-black dark:p-1"
                 />
                 <ErrorMessage
                   name="password"

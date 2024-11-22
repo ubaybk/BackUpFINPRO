@@ -7,13 +7,13 @@ import Layout from "../../components/layout";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const FollowingUserId = () => {
+  useEffect(()=> {
+    getFollowingByUserIdContextProvider();
+  },[])
   const {dataFollowingByUserId, getFollowingByUserIdContextProvider} = useContext(followingByUserIdContext);
   const defaultPhoto = usePhotoDefault();
   console.log("following by user id", dataFollowingByUserId);
 
-  useEffect(()=> {
-    getFollowingByUserIdContextProvider();
-  },[])
 
   return (
     <>
@@ -33,8 +33,8 @@ const FollowingUserId = () => {
                     className="w-10 h-10 rounded-full"
                   />
                   <div>
-                    <p>{item.username}</p>
-                    <p className="text-[12px] text-slate-500">{item.email}</p>
+                    <p>{item.username || "no username"} </p>
+                    <p className="text-[12px] text-slate-500">{item.email || "no email"}</p>
                   </div>
                 </div>
                 </Link>

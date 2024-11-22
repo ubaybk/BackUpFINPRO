@@ -28,7 +28,7 @@ const Register = () => {
       .matches(/^[0-9]+$/, "Phone number must be digits only")
       .required("Phone number is required"),
     bio: Yup.string().required("Bio is required"),
-    website: Yup.string().url("Invalid URL").required("Website is required"),
+    website: Yup.string().required("Website is required"),
   });
 
   // Formik untuk menangani state dan validasi
@@ -66,76 +66,82 @@ const Register = () => {
 
   return (
     <>
-    <Layout>
-    <div className="p-3">
-      <Link to={"/login"}>
-        <ButtonBack />
-      </Link>
-      <div className="text-center mb-8">
-        <h1 className="font-semibold text-[40px]">
-          Hello! Register to get started
-        </h1>
-        <p className="text-[14px] text-[#4A4A4A]">Sign in to your account</p>
-      </div>
-      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
-        {[
-          { name: "name", label: "Name", type: "text" },
-          { name: "username", label: "Username", type: "text" },
-          { name: "email", label: "Email", type: "email" },
-          { name: "password", label: "Password", type: "password" },
-          {
-            name: "passwordRepeat",
-            label: "Repeat Password",
-            type: "password",
-          },
-          { name: "phoneNumber", label: "Phone Number", type: "text" },
-          { name: "bio", label: "Bio", type: "text" },
-          { name: "website", label: "Website", type: "text" },
-        ].map(({ name, label, type }) => (
-          <div key={name} className="border border-green-500 rounded-md p-3">
-            <label
-              htmlFor={name}
-              className="block font-semibold text-green-500"
-            >
-              {label}
-            </label>
-            <input
-              id={name}
-              name={name}
-              type={type}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values[name]}
-              placeholder={`Enter your ${label.toLowerCase()}`}
-              className={`mt-1 block w-full rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-[14px] ${
-                formik.touched[name] && formik.errors[name]
-                  ? "border-red-500"
-                  : ""
-              }`}
-            />
-            {formik.touched[name] && formik.errors[name] && (
-              <p className="text-red-500 text-xs mt-1">{formik.errors[name]}</p>
-            )}
+      <Layout>
+        <div className="p-3">
+          <Link to={"/login"}>
+            <ButtonBack />
+          </Link>
+          <div className="text-center mb-8">
+            <h1 className="font-semibold text-[40px]">
+              Hello! Register to get started
+            </h1>
+            <p className="text-[14px] text-[#4A4A4A]">
+              Sign in to your account
+            </p>
           </div>
-        ))}
-        <button
-          type="submit"
-          className="bg-green-500 w-full py-5 font-medium text-[14px] text-white rounded-md mb-10"
-        >
-          Register
-        </button>
-        <div className="text-center">
-          <p>
-            Already have an account?{" "}
-            <Link to={"/login"}>
-              <span className="text-green-500">Login Now</span>
-            </Link>
-          </p>
+          <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
+            {[
+              { name: "name", label: "Name", type: "text" },
+              { name: "username", label: "Username", type: "text" },
+              { name: "email", label: "Email", type: "email" },
+              { name: "password", label: "Password", type: "password" },
+              {
+                name: "passwordRepeat",
+                label: "Repeat Password",
+                type: "password",
+              },
+              { name: "phoneNumber", label: "Phone Number", type: "text" },
+              { name: "bio", label: "Bio", type: "text" },
+              { name: "website", label: "Website", type: "text" },
+            ].map(({ name, label, type }) => (
+              <div
+                key={name}
+                className="border border-green-500 rounded-md p-3"
+              >
+                <label
+                  htmlFor={name}
+                  className="block font-semibold text-green-500"
+                >
+                  {label}
+                </label>
+                <input
+                  id={name}
+                  name={name}
+                  type={type}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values[name]}
+                  placeholder={`Enter your ${label.toLowerCase()}`}
+                  className={`mt-1 block w-full rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-[14px] dark:text-black dark:p-1 ${
+                    formik.touched[name] && formik.errors[name]
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                />
+                {formik.touched[name] && formik.errors[name] && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {formik.errors[name]}
+                  </p>
+                )}
+              </div>
+            ))}
+            <button
+              type="submit"
+              className="bg-green-500 w-full py-5 font-medium text-[14px] text-white rounded-md mb-10"
+            >
+              Register
+            </button>
+            <div className="text-center">
+              <p>
+                Already have an account?{" "}
+                <Link to={"/login"}>
+                  <span className="text-green-500">Login Now</span>
+                </Link>
+              </p>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
-
-    </Layout>
+      </Layout>
     </>
   );
 };

@@ -7,11 +7,15 @@ import axios from "axios";
 
 const NavbarFollow = () => {
   const username = localStorage.getItem("username");
-  const dataMyFollowing = useContext(followingContext);
-  const dataMyFollowers = useContext(followersContext)
+  const {dataMyfollowing, getMyfollowing} = useContext(followingContext);
+  const {dataMyfollowers , getMyfollowers} = useContext(followersContext)
 
-  console.log("ini total following", dataMyFollowing);
-  console.log("ini total followers", dataMyFollowers);
+  useEffect(()=> {
+    getMyfollowers()
+    getMyfollowing() 
+  },[getMyfollowers, getMyfollowing])
+
+  
 
   return (
     <>
@@ -26,7 +30,7 @@ const NavbarFollow = () => {
           <div className="border-2 bg-green-500 w-full">
             <Link to={"/myfollowers"}>
               <h1 className="text-[20px]">
-                {dataMyFollowers?.dataMyfollowers?.data?.totalItems} Pengikut
+                {dataMyfollowers?.data?.totalItems} Pengikut
               </h1>
             </Link>
           </div>
@@ -35,7 +39,7 @@ const NavbarFollow = () => {
               <h1 className="text-[20px]">
                 
                 {
-                  dataMyFollowing?.dataMyfollowing?.data?.totalItems
+                  dataMyfollowing?.data?.totalItems
                 } Mengikuti
               </h1>
             </Link>

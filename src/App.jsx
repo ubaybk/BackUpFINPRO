@@ -24,6 +24,7 @@ function App() {
     "/followersuserid",
     "/detailpost",
     "/detailexplore",
+    "/addstory"
     
   ];
   const showFooter = showFooterPaths.some(path =>
