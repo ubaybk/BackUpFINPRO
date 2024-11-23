@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 import Layout from "../../components/layout";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const photo = usePhotoDefault();
@@ -57,9 +59,29 @@ const Register = () => {
             },
           }
         );
+        toast.success("Registration successful!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
         navigate("/login");
       } catch (error) {
         console.error("Error registering:", error);
+
+        // Menampilkan pesan error di toast
+        const errorMessage =
+          error.response?.data?.message || "Something went wrong!";
+        toast.error(errorMessage, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
     },
   });
@@ -67,6 +89,8 @@ const Register = () => {
   return (
     <>
       <Layout>
+        {/* Komponen ToastContainer */}
+        <ToastContainer />
         <div className="p-3">
           <Link to={"/login"}>
             <ButtonBack />

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Comment from "../../components/comment";
 import useTime from "../../hooks/useTime";
 import { getFollowingPostContext } from "../../context/GetFollowingPostContextProvider";
@@ -11,16 +11,22 @@ import usePhotoDefault from "../../hooks/usePhotoDefault";
 import NavbarFollowingFollowers from "../../components/navbarFollowingFollowers";
 import Layout from "../../components/layout";
 import FollowingPostSide from "../../components/followingPostSide";
+import ButtonBack from "../../components/buttonback";
 
 const FollowingPost = () => {
-  const { dataGetFollowingPost, comments } = useContext(getFollowingPostContext);
+  const { dataGetFollowingPost, comments } = useContext(
+    getFollowingPostContext
+  );
   const timeAgo = useTime();
   const [posts, setPosts] = useState([]);
   const [showComments, setShowComments] = useState({});
   const [totalComments, setTotalComments] = useState({}); // Menyimpan jumlah komentar per post
   const apiKey = import.meta.env.VITE_API_KEY;
   const defaultPhoto = usePhotoDefault();
-  
+  const navigate = useNavigate()
+  const handleBack = () => {
+    navigate(-1); // Navigasi ke halaman sebelumnya
+  };
 
   // Fungsi untuk menangani like/unlike
   const handleLike = async (postId, isLike) => {
@@ -119,20 +125,30 @@ const FollowingPost = () => {
       <div className="pb-20 md:w-[500px]">
         {/* <NavbarFollowingFollowers /> */}
         <div className="p-3">
-        <Link to={'/dashboard'}>
-          <img src="./img/ubaypix-logo.png" className="w-[150px] md:w-[300px] md:hidden" alt="" />
-        </Link>
-        <MyFollowingStory />
+          <div className="flex items-center gap-1 md:hidden">
+          <button onClick={handleBack}>
+            <ButtonBack />
+          </button>
+          <Link to={"/dashboard"}>
+            <img
+              src="./img/BackUbaypix-logo.png"
+              className="w-[150px] md:w-[300px] md:hidden"
+              alt=""
+            />
+          </Link>
 
+          </div>
+          <MyFollowingStory />
         </div>
+        <div className="flex flex-col gap-4">
         {posts?.length > 0 ? (
           posts.map((item) => (
             <div key={item.id}>
               {/* Header post */}
-              <div className="flex items-center gap-3 p-3">
-                <div className="w-8">
+              <div className="flex items-center gap-3 p-3 mt-[-15px]">
+                <div className="">
                   <img
-                    className="rounded-full h-[36px] w-[36px]"
+                    className="rounded-full w-14 h-14 object-cover "
                     src={item.user.profilePictureUrl || defaultPhoto}
                     onError={(e) => {
                       e.target.src = defaultPhoto;
@@ -174,7 +190,7 @@ const FollowingPost = () => {
                   {/* Comment button */}
                   <div className="flex items-center gap-3">
                     <FaRegComment />
-                    <p className="text-[17px]">{totalComments[item.id] || 0}</p>
+                    <p className="text-[17px]">{totalComments[item.id]}</p>
                   </div>
                 </div>
 
@@ -199,7 +215,9 @@ const FollowingPost = () => {
                 {showComments[item.id] && (
                   <Comment
                     postId={item.id}
-                    onCommentData={(comments) => handleCommentData(item.id, comments)}
+                    onCommentData={(comments) =>
+                      handleCommentData(item.id, comments)
+                    }
                   />
                 )}
               </div>
@@ -208,6 +226,8 @@ const FollowingPost = () => {
         ) : (
           <p>Loading posts...</p>
         )}
+
+        </div>
       </div>
       <FollowingPostSide />
       {}

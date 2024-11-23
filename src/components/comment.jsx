@@ -5,6 +5,7 @@ import { FaAngleDoubleUp } from "react-icons/fa";
 import usePhotoDefault from "../hooks/usePhotoDefault";
 import { Link } from "react-router-dom";
 import { TiDelete } from "react-icons/ti";
+import { getLoginUserContext } from "../context/GetLoginUserContextProvider";
 
 const Comment = ({ postId, onCommentData }) => {
   const timeAgo = useTime();
@@ -13,9 +14,16 @@ const Comment = ({ postId, onCommentData }) => {
   const token = localStorage.getItem("token");
   const defaultPhoto = usePhotoDefault();
   const userId = localStorage.getItem("userId");
+  const {dataUserLogin, handleGetLoginUser } = useContext (getLoginUserContext)
+  
 
-  const photoProfile = localStorage.getItem("photo");
-  const username = localStorage.getItem("username");
+  // const photoProfile = localStorage.getItem("photo");
+  // const username = localStorage.getItem("username");
+
+  console.log('LOGINUSER',dataUserLogin)
+  useEffect(()=> {
+    handleGetLoginUser()
+  },[])
 
   const getPostById = () => {
     axios
@@ -138,7 +146,7 @@ const Comment = ({ postId, onCommentData }) => {
       </div>
       <div className="flex items-center mt-4">
         <img
-          src={photoProfile || defaultPhoto}
+          src={dataUserLogin.profilePictureUrl || defaultPhoto}
           onError={(e) => {
             e.target.src = defaultPhoto;
           }}
@@ -150,7 +158,7 @@ const Comment = ({ postId, onCommentData }) => {
           value={postComment.comment}
           onChange={handleChangeComment}
           name="comment"
-          placeholder="Add a comment"
+          placeholder="Add a comment "
           className="pl-3 mt-1 block w-full rounded-xl p-2 focus:ring-indigo-500 dark:text-black focus:border-indigo-500 ml-2"
         />
         <div

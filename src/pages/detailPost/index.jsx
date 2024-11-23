@@ -169,7 +169,7 @@ const DetailPost = () => {
                   <img
                     src={item?.user?.profilePictureUrl || defaultPhoto}
                     onError={(e) => {e.target.src=defaultPhoto}}
-                    className="w-10 h-10 rounded-full object-cover"
+                    className="w-14 h-14 rounded-full object-cover"
                     alt=""
                   />
                   <p>{item?.user?.username}</p>
@@ -220,7 +220,7 @@ const DetailPost = () => {
                     </div>
                     <div className="flex items-center gap-3">
                       <FaRegComment />
-                      <p className="text-[17px]">{totalComments[item.id] || 0}</p>
+                      <p className="text-[17px]">{totalComments[item.id]}</p>
                     </div>
                   </div>
 

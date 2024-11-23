@@ -99,7 +99,7 @@ const DetailExplore = () => {
           </div>
         </Link>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
           {/* Header post */}
           <div>
             <Link
@@ -111,7 +111,7 @@ const DetailExplore = () => {
                 onError={(e) => {
                   e.target.src = defaultPhoto;
                 }}
-                className="w-10 h-10 rounded-full"
+                className="w-14 h-14 rounded-full object-cover"
                 alt=""
               />
               <p>{post?.user?.username || "unknown"}</p>

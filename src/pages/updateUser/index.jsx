@@ -91,7 +91,7 @@ const UpdateUser = () => {
   return (
     <>
       <Layout>
-        <div className="p-6 w-screen  md:w-[700px]  md:px-36">
+        <div className="p-6 w-screen  md:w-[700px] mb-20 md:mb-0 md:px-36">
           <div className="flex items-center gap-2 font-semibold text-2xl">
             <button onClick={handleBack}>
               <ButtonBack />
