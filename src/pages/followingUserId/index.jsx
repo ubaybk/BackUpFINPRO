@@ -7,13 +7,13 @@ import Layout from "../../components/layout";
 import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const FollowingUserId = () => {
-  useEffect(()=> {
-    getFollowingByUserIdContextProvider();
-  },[])
   const {dataFollowingByUserId, getFollowingByUserIdContextProvider} = useContext(followingByUserIdContext);
   const defaultPhoto = usePhotoDefault();
   console.log("following by user id", dataFollowingByUserId);
-
+  
+  useEffect(()=> {
+    getFollowingByUserIdContextProvider();
+  },[])
 
   return (
     <>
