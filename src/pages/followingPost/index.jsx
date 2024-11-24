@@ -224,7 +224,7 @@ const FollowingPost = () => {
             </div>
           ))
         ) : (
-          <p>Loading posts...</p>
+          <p className="text-center mt-20">No posts</p>
         )}
 
         </div>

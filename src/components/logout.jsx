@@ -21,6 +21,7 @@ const Logout = () => {
   const [darkMode, toggleDarkMode] = useDarkMode();
   const { dataUserLogin, resetUserLogin } = useContext(getLoginUserContext);
   const photo = localStorage.getItem('photo')
+  const username = localStorage.getItem('username')
 
   console.log("ini dari logout USER", dataUserLogin);
 
@@ -81,7 +82,7 @@ const Logout = () => {
                 src={dataUserLogin.profilePictureUrl}
                 alt={dataUserLogin.username}
               />
-              <h1>{dataUserLogin.username}</h1>
+              <h1 className="text-[20px] font-semibold">{username}</h1>
             </div>
             <FaCheckCircle className="text-[25px]" />
           </div>
@@ -149,7 +150,7 @@ const Logout = () => {
               <div className="flex items-center gap-2 ">
                 <img
                   className="w-10 h-10 rounded-full"
-                  src={photo}
+                  src={dataUserLogin.profilePictureUrl}
                   alt={dataUserLogin.username}
                 />
                 <h1>Profile</h1>

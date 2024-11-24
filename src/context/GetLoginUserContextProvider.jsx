@@ -37,7 +37,7 @@ export const GetLoginUserContextProvider = ({children}) => {
     },[token])
 
     return(
-        <getLoginUserContext.Provider value={{dataUserLogin, handleGetLoginUser, resetUserLogin}}>
+        <getLoginUserContext.Provider value={{dataUserLogin,handleGetLoginUser, resetUserLogin}}>
             {children}
         </getLoginUserContext.Provider>
     )

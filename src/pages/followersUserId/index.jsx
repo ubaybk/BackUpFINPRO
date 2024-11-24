@@ -14,7 +14,7 @@ const FollowersUserId = () => {
   //   getFollowersByUserIdContextProvider();
   // },[])
 
-  const [dataFollowersByUserId, setDataFollowersByUserId] = useState();
+  const [dataFollowersByUserId, setDataFollowersByUserId] = useState('');
   const apiKey = import.meta.env.VITE_API_KEY;
   const token = localStorage.getItem("token");
   const { userId } = useParams();

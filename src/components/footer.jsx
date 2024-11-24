@@ -8,7 +8,9 @@ import { getLoginUserContext } from "../context/GetLoginUserContextProvider";
 const Footer = () => {
   const photoProfile = localStorage.getItem("photo");
 
-  const {dataUserLogin} = useContext(getLoginUserContext)
+  const {dataUserLogin, handleGetLoginUser } = useContext(getLoginUserContext)
+
+  console.log('DARI LOGIN',dataUserLogin)
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-green-500">
@@ -26,7 +28,7 @@ const Footer = () => {
           <div className="">
             <img
               className="border-2 w-10 h-10 border-white rounded-full"
-              src={dataUserLogin.profilePictureUrl}
+              src={dataUserLogin?.profilePictureUrl}
               alt=""
             />
           </div>
