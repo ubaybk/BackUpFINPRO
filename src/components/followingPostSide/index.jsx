@@ -22,7 +22,7 @@ const FollowingPostSide = () => {
                 alt={dataUserLogin.username}
               />
               <div className="leading-tight">
-                <p className="text-[12px]">{dataUserLogin.username}</p>
+                <p className="text-[12px] dark:text-white">{dataUserLogin.username}</p>
                 <p className="text-gray-400 text-[12px]">
                   {dataUserLogin.name}
                 </p>

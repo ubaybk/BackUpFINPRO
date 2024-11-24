@@ -181,6 +181,7 @@ const Story = () => {
       </Layout>
     );
   }
+  console.log('dataVIEW COOY',dataViewStory)
 
   return (
     <Layout>
@@ -279,7 +280,7 @@ const Story = () => {
                     src={viewer?.user?.profilePictureUrl}
                     className="w-6 h-6 rounded-full border-2 border-black"
                     alt={viewer?.user?.username}
-                  />
+                  /> 
                 ))}
               </div>
               <p className="text-white text-sm">
@@ -307,7 +308,9 @@ const Story = () => {
               </div>
               <div className="space-y-3">
                 {dataViewStory.map((viewer, index) => (
-                  <div key={index} className="flex items-center gap-3">
+                  <div key={index} >
+                    <Link to={`/detailuser/${viewer?.user?.id}`}>
+                    <div className="flex items-center gap-3">
                     <img
                       src={viewer?.user?.profilePictureUrl}
                       className="w-10 h-10 rounded-full"
@@ -317,6 +320,9 @@ const Story = () => {
                       <p className="font-semibold dark:text-black">{viewer?.user?.username}</p>
                       <p className="text-gray-500 text-sm">{viewer?.user?.name}</p>
                     </div>
+
+                    </div>
+                    </Link>
                   </div>
                 ))}
               </div>
