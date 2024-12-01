@@ -129,7 +129,9 @@ const Dashboard = () => {
                   <div>
                     {idDataUser && idDataUser.profilePictureUrl && (
                       <img
-                        src={idDataUser.profilePictureUrl}
+                        src={idDataUser.profilePictureUrl || defaultPhoto} onError={(e) => {
+                          e.target.src = defaultPhoto;
+                        }}
                         className="w-[70px] h-[70px] object-cover rounded-full"
                         alt=""
                       />
