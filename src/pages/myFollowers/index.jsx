@@ -3,9 +3,11 @@ import NavbarFollow from "../../components/navbarFolow";
 import { followersContext } from "../../context/FollowersContextProvider";
 import { Link } from "react-router-dom";
 import Layout from "../../components/layout";
+import usePhotoDefault from "../../hooks/usePhotoDefault";
 
 const MyFollowers = () => {
   const dataMyFollowers = useContext(followersContext);
+  const defaultPhoto = usePhotoDefault()
 
   // console.log("ini followers context", dataMyFollowers.dataMyfollowers);
 
